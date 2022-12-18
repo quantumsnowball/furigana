@@ -13,6 +13,7 @@ import { useState } from "react"
 import MenuDrawer from "../MenuDrawer"
 import { useDispatch } from "react-redux"
 import { themeActions } from "../../redux/slices/themeSlice"
+import { VERSION } from "../../constants"
 
 
 const MenuBar = () => {
@@ -39,7 +40,7 @@ const MenuBar = () => {
             component="div"
             sx={{ flexGrow: 1, cursor: 'pointer' }}
           >
-            Furigana
+            Furigana, v{VERSION}
           </Typography>
           <IconButton onClick={() => dispatch(themeActions.toggleMode())}>
             {theme.palette.mode === 'light' ?
