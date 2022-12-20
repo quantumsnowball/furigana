@@ -1,4 +1,4 @@
-import { Button, Paper, styled, TextField, Typography } from "@mui/material";
+import { Button, Fab, Paper, styled, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Overflow, Stretch } from "../../styled/containers";
 import Kuroshiro from "kuroshiro"
@@ -72,9 +72,15 @@ function Home() {
         :
         <Row entry={furigana} />
       }
-      <Button
+      <Fab
+        color='primary'
+        sx={{
+          position: 'absolute',
+          bottom: 25,
+          right: 50
+        }}
         onClick={() => setRomajiOn(!romajiOn)}
-      >{romajiOn ? 'hide Romaji' : 'show Romaji'}</Button>
+      >{romajiOn ? 'A' : 'あ'}</Fab>
     </ContentDiv>
   )
 }
