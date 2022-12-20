@@ -13,9 +13,9 @@ const kuroshiro = new Kuroshiro();
 (async () => await kuroshiro.init(new KuromojiAnalyzer({ dictPath: "dict/" })))()
 
 function Home() {
-  const [source, setSource] = useState('日本の')
-  const [furigana, setFurigana] = useState('')
-  const [romaji, setRomaji] = useState('')
+  const [source, setSource] = useState(['日本の'])
+  const [furigana, setFurigana] = useState([''])
+  const [romaji, setRomaji] = useState([''])
 
   const convert = (mode: string, to: string) =>
     async (txt: string) => await kuroshiro.convert(txt, { mode, to })
@@ -30,31 +30,37 @@ function Home() {
           my: 2,
           p: 1,
         }}
-        value={source}
+        value={source.join('\n')}
         onChange={async e => {
-          setSource(e.target.value)
+          const vals = e.target.value.split('\n')
+          setSource(vals)
           try {
-            setFurigana(await convert('furigana', 'hiragana')(e.target.value))
-            setRomaji(await convert('furigana', 'romaji')(e.target.value))
+            setFurigana(await Promise.all(vals.map(
+              async (txt: string) => await convert('furigana', 'hiragana')(txt))))
+            setRomaji(await Promise.all(vals.map(
+              async (txt: string) => await convert('furigana', 'romaji')(txt))))
           } catch (err) {
             console.log(err)
           }
         }}
       >
       </TextField>
-
-      <Typography
-        variant='h5'
-        sx={{ textAlign: 'left' }}
-      >
-        {parse(furigana)}
-      </Typography>
-      <Typography
-        variant='h5'
-        sx={{ textAlign: 'left' }}
-      >
-        {parse(romaji)}
-      </Typography>
+      {furigana.map(f =>
+        <Typography
+          variant='h5'
+          sx={{ textAlign: 'left' }}
+        >
+          {parse(f)}
+        </Typography>
+      )}
+      {romaji.map(r =>
+        <Typography
+          variant='h5'
+          sx={{ textAlign: 'left' }}
+        >
+          {parse(r)}
+        </Typography>
+      )}
     </ContentDiv>
   )
 }
