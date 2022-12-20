@@ -1,5 +1,5 @@
 import { Button, Paper, styled, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Overflow, Stretch } from "../../styled/containers";
 import Kuroshiro from "kuroshiro"
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji"
@@ -20,6 +20,27 @@ function Home() {
 
   const convert = (mode: string, to: string) =>
     async (txt: string) => await kuroshiro.convert(txt, { mode, to })
+
+
+  const Row = ({ entry }: { entry: string[] }) =>
+    <Paper
+      elevation={1}
+      sx={{ m: 1, p: 1 }}
+    >
+      {entry.map((r: string) =>
+        <Paper
+          elevation={3}
+          sx={{ p: 1, height: 70 }}
+        >
+          <Typography
+            variant='h5'
+            sx={{ textAlign: 'left' }}
+          >
+            {parse(r)}
+          </Typography>
+        </Paper>
+      )}
+    </Paper>
 
   return (
     <ContentDiv id='content-ctn'>
@@ -47,43 +68,9 @@ function Home() {
       >
       </TextField>
       {romajiOn ?
-        <Paper
-          elevation={1}
-          sx={{ m: 1, p: 1 }}
-        >
-          {romaji.map(r =>
-            <Paper
-              elevation={3}
-              sx={{ p: 1 }}
-            >
-              <Typography
-                variant='h5'
-                sx={{ textAlign: 'left' }}
-              >
-                {parse(r)}
-              </Typography>
-            </Paper>
-          )}
-        </Paper>
+        <Row entry={romaji} />
         :
-        <Paper
-          elevation={1}
-          sx={{ m: 1, p: 1 }}
-        >
-          {furigana.map(f =>
-            <Paper
-              elevation={3}
-              sx={{ p: 1 }}
-            >
-              <Typography
-                variant='h5'
-                sx={{ textAlign: 'left' }}
-              >
-                {parse(f)}
-              </Typography>
-            </Paper>
-          )}
-        </Paper>
+        <Row entry={furigana} />
       }
       <Button
         onClick={() => setRomajiOn(!romajiOn)}
