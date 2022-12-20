@@ -1,4 +1,4 @@
-import { Paper, styled, TextField, Typography } from "@mui/material";
+import { Button, Paper, styled, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Overflow, Stretch } from "../../styled/containers";
 import Kuroshiro from "kuroshiro"
@@ -16,6 +16,7 @@ function Home() {
   const [source, setSource] = useState(['日本の'])
   const [furigana, setFurigana] = useState([''])
   const [romaji, setRomaji] = useState([''])
+  const [romajiOn, setRomajiOn] = useState(false)
 
   const convert = (mode: string, to: string) =>
     async (txt: string) => await kuroshiro.convert(txt, { mode, to })
@@ -45,42 +46,48 @@ function Home() {
         }}
       >
       </TextField>
-      <Paper
-        elevation={1}
-        sx={{ m: 1, p: 1 }}
-      >
-        {furigana.map(f =>
-          <Paper
-            elevation={3}
-            sx={{ p: 1 }}
-          >
-            <Typography
-              variant='h5'
-              sx={{ textAlign: 'left' }}
+      {romajiOn ?
+        <Paper
+          elevation={1}
+          sx={{ m: 1, p: 1 }}
+        >
+          {romaji.map(r =>
+            <Paper
+              elevation={3}
+              sx={{ p: 1 }}
             >
-              {parse(f)}
-            </Typography>
-          </Paper>
-        )}
-      </Paper>
-      <Paper
-        elevation={1}
-        sx={{ m: 1, p: 1 }}
-      >
-        {romaji.map(r =>
-          <Paper
-            elevation={3}
-            sx={{ p: 1 }}
-          >
-            <Typography
-              variant='h5'
-              sx={{ textAlign: 'left' }}
+              <Typography
+                variant='h5'
+                sx={{ textAlign: 'left' }}
+              >
+                {parse(r)}
+              </Typography>
+            </Paper>
+          )}
+        </Paper>
+        :
+        <Paper
+          elevation={1}
+          sx={{ m: 1, p: 1 }}
+        >
+          {furigana.map(f =>
+            <Paper
+              elevation={3}
+              sx={{ p: 1 }}
             >
-              {parse(r)}
-            </Typography>
-          </Paper>
-        )}
-      </Paper>
+              <Typography
+                variant='h5'
+                sx={{ textAlign: 'left' }}
+              >
+                {parse(f)}
+              </Typography>
+            </Paper>
+          )}
+        </Paper>
+      }
+      <Button
+        onClick={() => setRomajiOn(!romajiOn)}
+      >{romajiOn ? 'hide Romaji' : 'show Romaji'}</Button>
     </ContentDiv>
   )
 }
