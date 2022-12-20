@@ -19,12 +19,11 @@ import { VERSION } from "../../constants"
 const MenuBar = () => {
   const dispatch = useDispatch()
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <>
-      <AppBar position={isMobile ? "fixed" : "static"}>
+      <AppBar position="static">
         <Toolbar>
           <IconButton
             size="large"

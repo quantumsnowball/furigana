@@ -1,4 +1,4 @@
-import { styled, TextField, Typography } from "@mui/material";
+import { Paper, styled, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Overflow, Stretch } from "../../styled/containers";
 import Kuroshiro from "kuroshiro"
@@ -27,7 +27,7 @@ function Home() {
         multiline
         label='Japanese'
         sx={{
-          my: 2,
+          mt: 2,
           p: 1,
         }}
         value={source.join('\n')}
@@ -45,22 +45,42 @@ function Home() {
         }}
       >
       </TextField>
-      {furigana.map(f =>
-        <Typography
-          variant='h5'
-          sx={{ textAlign: 'left' }}
-        >
-          {parse(f)}
-        </Typography>
-      )}
-      {romaji.map(r =>
-        <Typography
-          variant='h5'
-          sx={{ textAlign: 'left' }}
-        >
-          {parse(r)}
-        </Typography>
-      )}
+      <Paper
+        elevation={1}
+        sx={{ m: 1, p: 1 }}
+      >
+        {furigana.map(f =>
+          <Paper
+            elevation={3}
+            sx={{ p: 1 }}
+          >
+            <Typography
+              variant='h5'
+              sx={{ textAlign: 'left' }}
+            >
+              {parse(f)}
+            </Typography>
+          </Paper>
+        )}
+      </Paper>
+      <Paper
+        elevation={1}
+        sx={{ m: 1, p: 1 }}
+      >
+        {romaji.map(r =>
+          <Paper
+            elevation={3}
+            sx={{ p: 1 }}
+          >
+            <Typography
+              variant='h5'
+              sx={{ textAlign: 'left' }}
+            >
+              {parse(r)}
+            </Typography>
+          </Paper>
+        )}
+      </Paper>
     </ContentDiv>
   )
 }
