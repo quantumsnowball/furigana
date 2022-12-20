@@ -1,8 +1,23 @@
+import { styled, TextField } from "@mui/material";
+import { Overflow, Stretch } from "../../styled/containers";
+
+
+const ContentDiv = styled(Overflow(Stretch('div')))`
+`
+
 function Home() {
   return (
-    <div>
-      <h1>HomePage</h1>
-    </div>
+    <ContentDiv id='content-ctn'>
+      <TextField
+        fullWidth
+        multiline
+        sx={{
+          p: 1,
+        }}
+      >
+
+      </TextField>
+    </ContentDiv>
   )
 }
 
