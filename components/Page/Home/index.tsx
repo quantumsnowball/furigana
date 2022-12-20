@@ -9,18 +9,16 @@ import parse from "html-react-parser"
 const ContentDiv = styled(Overflow(Stretch('div')))`
 `
 
+const kuroshiro = new Kuroshiro();
+(async () => await kuroshiro.init(new KuromojiAnalyzer({ dictPath: "dict/" })))()
+
 function Home() {
   const [source, setSource] = useState('日本の')
   const [furigana, setFurigana] = useState('')
   const [romaji, setRomaji] = useState('')
-  const kuroshiro = new Kuroshiro()
 
-  useEffect(() => {
-    const init = async () => {
-      await kuroshiro.init(new KuromojiAnalyzer({ dictPath: "dict/" }))
-    }
-    init()
-  }, [])
+  const convert = (mode: string, to: string) =>
+    async (txt: string) => await kuroshiro.convert(txt, { mode, to })
 
   return (
     <ContentDiv id='content-ctn'>
@@ -36,14 +34,8 @@ function Home() {
         onChange={async e => {
           setSource(e.target.value)
           try {
-            const converted_furigana = await kuroshiro.convert(e.target.value, {
-              mode: "furigana", to: "hiragana"
-            })
-            const converted_romaji = await kuroshiro.convert(e.target.value, {
-              mode: "furigana", to: "romaji"
-            })
-            setFurigana(converted_furigana)
-            setRomaji(converted_romaji)
+            setFurigana(await convert('furigana', 'hiragana')(e.target.value))
+            setRomaji(await convert('furigana', 'romaji')(e.target.value))
           } catch (err) {
             console.log(err)
           }
@@ -52,12 +44,14 @@ function Home() {
       </TextField>
 
       <Typography
-        variant='h3'
+        variant='h5'
+        sx={{ textAlign: 'left' }}
       >
         {parse(furigana)}
       </Typography>
       <Typography
-        variant='h3'
+        variant='h5'
+        sx={{ textAlign: 'left' }}
       >
         {parse(romaji)}
       </Typography>
