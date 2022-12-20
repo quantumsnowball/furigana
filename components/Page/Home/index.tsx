@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 import { Overflow, Stretch } from "../../styled/containers";
 import Kuroshiro from "kuroshiro"
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji"
+import parse from "html-react-parser"
 
 
 const ContentDiv = styled(Overflow(Stretch('div')))`
 `
 
 function Home() {
-  const [source, setSource] = useState('Furigana')
-  const [furigana, setFurigana] = useState('Furigana')
+  const [source, setSource] = useState('日本の')
+  const [furigana, setFurigana] = useState('')
+  const [romaji, setRomaji] = useState('')
   const kuroshiro = new Kuroshiro()
 
   useEffect(() => {
@@ -34,32 +36,31 @@ function Home() {
         onChange={async e => {
           setSource(e.target.value)
           try {
-            const converted = await kuroshiro.convert(e.target.value, {
+            const converted_furigana = await kuroshiro.convert(e.target.value, {
               mode: "furigana", to: "hiragana"
             })
-            setFurigana(converted)
+            const converted_romaji = await kuroshiro.convert(e.target.value, {
+              mode: "furigana", to: "romaji"
+            })
+            setFurigana(converted_furigana)
+            setRomaji(converted_romaji)
           } catch (err) {
             console.log(err)
           }
         }}
       >
-
       </TextField>
-      <TextField
-        fullWidth
-        multiline
-        label='Furigana, Romaji, Translation'
-        sx={{
-          my: 2,
-          p: 1,
-        }}
-        value={furigana}
+
+      <Typography
+        variant='h3'
       >
-
-      </TextField>
-      <ruby>
-        {furigana}
-      </ruby>
+        {parse(furigana)}
+      </Typography>
+      <Typography
+        variant='h3'
+      >
+        {parse(romaji)}
+      </Typography>
     </ContentDiv>
   )
 }
