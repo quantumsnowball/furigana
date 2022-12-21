@@ -1,14 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { DEFAULT_CONTENT_DATA, DEFAULT_CONTENT_ITEMS } from '../../constants/content'
-import { ChineseItem, EnglishItem, FuriganaItem, RomajiItem, SourceItem } from '../../types/content'
+import { DEFAULT_CONTENT, DEFAULT_CONTENT_DATA } from '../../constants/content'
+import { ChineseItem, Content, EnglishItem, FuriganaItem, RomajiItem, SourceItem } from '../../types/content'
 
 
 const contentSlice = createSlice({
   name: 'content',
-  initialState: {
-    items: DEFAULT_CONTENT_ITEMS
-  },
+  initialState: DEFAULT_CONTENT,
   reducers: {
+    setTitle: (s, a: PayloadAction<string>) => {
+      s.title = a.payload
+    },
+    setContent: (s, a: PayloadAction<Content>) => {
+      s.title = a.payload.title
+      s.items = a.payload.items
+    },
     addContent: (s, a: PayloadAction<{ uuid: string }>) => {
       s.items.push({ uuid: a.payload.uuid, ...DEFAULT_CONTENT_DATA })
     },

@@ -44,13 +44,10 @@ const Rows = () => {
   const items = useSelector((s: RootState) => s.content.items)
 
   return (
-    <Paper
-      elevation={1}
-      sx={{ m: 1, p: 1 }}
-    >
+    <>
       {items.map((item: ContentItem) => <Row key={item.uuid} {...{ wordMode, item }} />
       )}
-    </Paper>
+    </>
   )
 }
 

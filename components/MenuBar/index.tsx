@@ -2,7 +2,6 @@ import {
   AppBar,
   IconButton,
   Toolbar,
-  Typography,
   useTheme
 } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu'
@@ -12,7 +11,7 @@ import { useState } from "react"
 import MenuDrawer from "./MenuDrawer"
 import { useDispatch } from "react-redux"
 import { themeActions } from "../../redux/slices/themeSlice"
-import { APP_NAME, VERSION } from "../../constants"
+import TitleSection from "./TitleSection"
 
 
 const MenuBar = () => {
@@ -34,12 +33,7 @@ const MenuBar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            component="div"
-            sx={{ flexGrow: 1, cursor: 'pointer' }}
-          >
-            {APP_NAME}, v{VERSION}
-          </Typography>
+          <TitleSection />
           <IconButton onClick={() => dispatch(themeActions.toggleMode())}>
             {theme.palette.mode === 'light' ?
               <LightModeIcon sx={{ color: '#fff' }} /> : <DarkModeIcon />}
