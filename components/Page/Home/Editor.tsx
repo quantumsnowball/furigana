@@ -32,7 +32,11 @@ function Editor({ editorOpen, setEditorOpen }: EditorProps) {
   const convert = (mode: string, to: string) =>
     async (txt: string) => await kuroshiro.convert(txt, { mode, to })
 
-  const onClose = () => setEditorOpen(false)
+  const onClear = () => setSourceText('')
+  const onCancel = () => {
+    setEditorOpen(false)
+    setSourceText(source.join('\n'))
+  }
   const onConfirm = async () => {
     const vals = sourceText.split('\n')
     setSource(vals)
@@ -51,7 +55,7 @@ function Editor({ editorOpen, setEditorOpen }: EditorProps) {
     <Dialog
       fullScreen
       open={editorOpen}
-      onClose={onClose}
+      onClose={onCancel}
       aria-labelledby="responsive-dialog-title"
     >
       <DialogTitle id="responsive-dialog-title">
@@ -70,7 +74,10 @@ function Editor({ editorOpen, setEditorOpen }: EditorProps) {
         />
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={onClose}>
+        <Button onClick={onClear} color='error'>
+          Clear
+        </Button>
+        <Button onClick={onCancel}>
           Cancel
         </Button>
         <Button onClick={onConfirm} autoFocus>
