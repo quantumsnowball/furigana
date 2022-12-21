@@ -6,6 +6,7 @@ import {
 import StarIcon from '@mui/icons-material/Star'
 import EditIcon from '@mui/icons-material/Edit'
 import { useRouter } from "next/router"
+import ToolSection from "./ToolSection"
 
 
 const BottomBar = () => {
@@ -25,6 +26,7 @@ const BottomBar = () => {
           >
             <EditIcon />
           </IconButton>
+          <ToolSection />
           <IconButton onClick={() => {
             router.push(router.pathname === '/favorite' ? '/' : '/favorite')
           }}>
