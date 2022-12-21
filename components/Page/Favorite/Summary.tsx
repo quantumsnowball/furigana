@@ -1,4 +1,5 @@
 import {
+  IconButton,
   Paper,
   Typography
 } from "@mui/material"
@@ -6,6 +7,8 @@ import { useRouter } from "next/router"
 import { useDispatch } from "react-redux"
 import { contentActions } from "../../../redux/slices/contentSlice"
 import { Content } from "../../../types/content"
+import ClearIcon from '@mui/icons-material/Clear'
+import { favoriteActions } from "../../../redux/slices/favoriteSlice"
 
 
 interface SummaryProps {
@@ -17,6 +20,7 @@ function Summary({ content }: SummaryProps) {
   const router = useRouter()
   const dispatch = useDispatch()
   const setContent = (c: Content) => dispatch(contentActions.setContent(c))
+  const removeItem = (title: string) => dispatch(favoriteActions.removeItem(title))
 
   return (
     <Paper
@@ -47,6 +51,15 @@ function Summary({ content }: SummaryProps) {
       >
         {items.length}
       </Typography>
+      <IconButton
+        color='error'
+        onClick={e => {
+          removeItem(content.title)
+          e.stopPropagation()
+        }}
+      >
+        <ClearIcon />
+      </IconButton>
     </Paper>
   )
 
