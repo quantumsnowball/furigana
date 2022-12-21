@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "../../../redux/store"
 import { Content } from "../../../types/content"
 import { Overflow, Stretch } from "../../styled/containers"
-import Summary from "./Summary"
+import Summary from './Summary'
 
 
 const ContentDiv = styled(Overflow(Stretch('div')))`

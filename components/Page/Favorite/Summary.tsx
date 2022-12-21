@@ -1,4 +1,7 @@
-import { Typography } from "@mui/material"
+import {
+  Paper,
+  Typography
+} from "@mui/material"
 import { Content } from "../../../types/content"
 
 
@@ -8,11 +11,31 @@ interface SummaryProps {
 
 function Summary({ content: { title, items } }: SummaryProps) {
   return (
-    <Typography
-      variant='h4'
+    <Paper
+      elevation={1}
+      sx={{
+        display: 'flex',
+        p: 1
+      }}
     >
-      {title}
-    </Typography>
+      <Typography
+        variant='h5'
+        sx={{
+          flex: 1,
+          textAlign: 'left'
+        }}
+      >
+        {title}
+      </Typography>
+      <Typography
+        variant='h5'
+        sx={{
+          textAlign: 'right'
+        }}
+      >
+        {items.length}
+      </Typography>
+    </Paper>
   )
 
 }
