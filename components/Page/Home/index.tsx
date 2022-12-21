@@ -1,6 +1,6 @@
 import { styled, } from "@mui/material";
 import { Overflow, Stretch } from "../../styled/containers";
-import { FabToggleRomaji, ToggleEditor } from "./Buttons";
+import { ToggleEditor } from "./Buttons";
 import Rows from "./Rows";
 import { useState } from "react";
 import Editor from "./Editor";
@@ -17,7 +17,6 @@ function Home() {
       <ToggleEditor {...{ setEditorOpen }} />
       <Rows />
       <Editor {...{ editorOpen, setEditorOpen }} />
-      <FabToggleRomaji />
     </ContentDiv>
   )
 }
