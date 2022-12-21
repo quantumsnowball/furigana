@@ -2,17 +2,15 @@ import {
   Paper,
   styled,
   TextField,
-  Typography
 } from "@mui/material";
 import { Overflow, Stretch } from "../../styled/containers";
 import Kuroshiro from "kuroshiro"
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji"
-import parse from "html-react-parser"
 import { FabToggleRomaji } from "./Buttons";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { contentActions } from "../../../redux/slices/contentSlice";
-import { v4 } from "uuid"
+import Row from "./Row";
 
 
 const ContentDiv = styled(Overflow(Stretch('div')))`
@@ -40,27 +38,6 @@ function Home() {
   const convert = (mode: string, to: string) =>
     async (txt: string) => await kuroshiro.convert(txt, { mode, to })
 
-
-  const Row = ({ entry }: { entry: string[] }) =>
-    <Paper
-      elevation={1}
-      sx={{ m: 1, p: 1 }}
-    >
-      {entry.map((r: string) =>
-        <Paper
-          key={v4()}
-          elevation={3}
-          sx={{ p: 1, height: 70 }}
-        >
-          <Typography
-            variant='h5'
-            sx={{ textAlign: 'left' }}
-          >
-            {parse(r)}
-          </Typography>
-        </Paper>
-      )}
-    </Paper>
 
   return (
     <ContentDiv id='content-ctn'>
