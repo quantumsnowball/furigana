@@ -4,14 +4,15 @@ import {
   TextField,
   Typography
 } from "@mui/material";
-import { useState } from "react";
 import { Overflow, Stretch } from "../../styled/containers";
 import Kuroshiro from "kuroshiro"
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji"
 import parse from "html-react-parser"
 import { FabToggleRomaji } from "./Buttons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { contentActions } from "../../../redux/slices/contentSlice";
+import { v4 } from "uuid"
 
 
 const ContentDiv = styled(Overflow(Stretch('div')))`
@@ -21,9 +22,19 @@ const kuroshiro = new Kuroshiro();
 (async () => await kuroshiro.init(new KuromojiAnalyzer({ dictPath: "dict/" })))()
 
 function Home() {
-  const [source, setSource] = useState([''])
-  const [furigana, setFurigana] = useState([''])
-  const [romaji, setRomaji] = useState([''])
+  const dispatch = useDispatch()
+  const [source, setSource] = [
+    useSelector((s: RootState) => s.content.source),
+    (s: string[]) => dispatch(contentActions.setSource(s))
+  ]
+  const [furigana, setFurigana] = [
+    useSelector((s: RootState) => s.content.furigana),
+    (s: string[]) => dispatch(contentActions.setFurigana(s))
+  ]
+  const [romaji, setRomaji] = [
+    useSelector((s: RootState) => s.content.romaji),
+    (s: string[]) => dispatch(contentActions.setRomaji(s))
+  ]
   const romajiOn = useSelector((s: RootState) => s.layout.romajiOn)
 
   const convert = (mode: string, to: string) =>
@@ -37,6 +48,7 @@ function Home() {
     >
       {entry.map((r: string) =>
         <Paper
+          key={v4()}
           elevation={3}
           sx={{ p: 1, height: 70 }}
         >
