@@ -6,6 +6,7 @@ import { v4 } from 'uuid'
 import translate from "translate"
 import Kuroshiro from "kuroshiro"
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji"
+import Chinese from 'chinese-s2t'
 import {
   ChineseItem,
   EnglishItem,
@@ -63,7 +64,7 @@ function Editor({ editorOpen, setEditorOpen }: EditorProps) {
         setFurigana({ i, val: await convert('furigana', 'hiragana')(source) })
         setRomaji({ i, val: await convert('furigana', 'romaji')(source) })
         setEnglish({ i, val: await translateTo('en')(source) })
-        setChinese({ i, val: await translateTo('zh')(source) })
+        setChinese({ i, val: Chinese.s2t(await translateTo('zh')(source)) })
         setEditorOpen(false)
       }
     } catch (err) {
