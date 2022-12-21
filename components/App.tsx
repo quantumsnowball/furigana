@@ -8,6 +8,7 @@ import Main from './Main'
 import { CenterContent } from './styled/containers'
 import { useCallback, useEffect } from 'react'
 import chooseTheme from '../styles/theme'
+import BottomBar from './BottomBar'
 
 
 const defaultTheme = createTheme()
@@ -28,6 +29,7 @@ const App: CustomFC = ({ children }) => {
     <FlexColumnDiv id="app-ctn">
       <MenuBar />
       <Main> {children} </Main>
+      <BottomBar />
     </FlexColumnDiv>
   )
 }
