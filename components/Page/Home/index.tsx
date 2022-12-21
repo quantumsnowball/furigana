@@ -13,7 +13,7 @@ const kuroshiro = new Kuroshiro();
 (async () => await kuroshiro.init(new KuromojiAnalyzer({ dictPath: "dict/" })))()
 
 function Home() {
-  const [source, setSource] = useState(['日本の'])
+  const [source, setSource] = useState([''])
   const [furigana, setFurigana] = useState([''])
   const [romaji, setRomaji] = useState([''])
   const [romajiOn, setRomajiOn] = useState(false)
@@ -44,29 +44,29 @@ function Home() {
 
   return (
     <ContentDiv id='content-ctn'>
-      <TextField
-        fullWidth
-        multiline
-        label='Japanese'
-        sx={{
-          mt: 2,
-          p: 1,
-        }}
-        value={source.join('\n')}
-        onChange={async e => {
-          const vals = e.target.value.split('\n')
-          setSource(vals)
-          try {
-            setFurigana(await Promise.all(vals.map(
-              async (txt: string) => await convert('furigana', 'hiragana')(txt))))
-            setRomaji(await Promise.all(vals.map(
-              async (txt: string) => await convert('furigana', 'romaji')(txt))))
-          } catch (err) {
-            console.log(err)
-          }
-        }}
+      <Paper
+        elevation={1}
+        sx={{p:1}}
       >
-      </TextField>
+        <TextField
+          fullWidth
+          multiline
+          label='Japanese'
+          value={source.join('\n')}
+          onChange={async e => {
+            const vals = e.target.value.split('\n')
+            setSource(vals)
+            try {
+              setFurigana(await Promise.all(vals.map(
+                async (txt: string) => await convert('furigana', 'hiragana')(txt))))
+              setRomaji(await Promise.all(vals.map(
+                async (txt: string) => await convert('furigana', 'romaji')(txt))))
+            } catch (err) {
+              console.log(err)
+            }
+          }}
+        />
+      </Paper>
       {romajiOn ?
         <Row entry={romaji} />
         :
@@ -77,7 +77,7 @@ function Home() {
         sx={{
           position: 'absolute',
           bottom: 25,
-          right: 50
+          right: 25
         }}
         onClick={() => setRomajiOn(!romajiOn)}
       >{romajiOn ? 'A' : 'あ'}</Fab>
