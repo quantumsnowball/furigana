@@ -1,8 +1,23 @@
+import { styled, } from "@mui/material"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../redux/store"
+import { Content } from "../../../types/content"
+import { Overflow, Stretch } from "../../styled/containers"
+import Summary from "./Summary"
+
+
+const ContentDiv = styled(Overflow(Stretch('div')))`
+`
+
 function Favorite() {
+  const favorites = useSelector((s: RootState) => s.favorite.items)
+
   return (
-    <div>
-      <h1>FavoritePage</h1>
-    </div>
+    <ContentDiv id='content-ctn'>
+      {Object.values(favorites).map((content: Content) =>
+        <Summary key={content.title} content={content} />
+      )}
+    </ContentDiv>
   )
 }
 
