@@ -1,5 +1,5 @@
 import { store, persistor, RootState } from '../redux/store'
-import { Provider, useDispatch, useSelector } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { createTheme, styled, ThemeProvider } from '@mui/material'
 import { CustomFC } from '../types'

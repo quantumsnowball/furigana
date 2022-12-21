@@ -3,7 +3,6 @@ import {
   IconButton,
   Toolbar,
   Typography,
-  useMediaQuery,
   useTheme
 } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu'
