@@ -1,5 +1,5 @@
 import { Box, Divider, SwipeableDrawer } from '@mui/material'
-import { APP_NAME } from '../../constants'
+import { APP_NAME } from '../../../constants'
 import AboutMenu from './AboutMenu'
 import { MenuTitle } from './common'
 import SettingsMenu from './SettingsMenu'

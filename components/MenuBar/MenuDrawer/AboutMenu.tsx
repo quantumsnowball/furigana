@@ -2,11 +2,11 @@ import { List, Collapse } from '@mui/material'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import InfoIcon from '@mui/icons-material/Info'
 import { useSelector } from 'react-redux'
-import { RootState } from '../../redux/store'
+import { RootState } from '../../../redux/store'
 import { useDispatch } from 'react-redux'
-import { layoutActions } from '../../redux/slices/layoutSlice'
+import { layoutActions } from '../../../redux/slices/layoutSlice'
 import { MenuLabel, MenuButtonGrouper } from './common'
-import { APP_NAME, VERSION } from '../../constants'
+import { APP_NAME, VERSION } from '../../../constants'
 
 
 function AboutMenu() {
