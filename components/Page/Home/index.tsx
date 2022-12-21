@@ -1,9 +1,6 @@
-import {
-  Button,
-  styled,
-} from "@mui/material";
+import { styled, } from "@mui/material";
 import { Overflow, Stretch } from "../../styled/containers";
-import { FabToggleRomaji } from "./Buttons";
+import { FabToggleRomaji, ToggleEditor } from "./Buttons";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import Row from "./Row";
@@ -22,11 +19,7 @@ function Home() {
 
   return (
     <ContentDiv id='content-ctn'>
-      <Button
-        onClick={() => setEditorOpen(true)}
-      >
-        Open Editor
-      </Button>
+      <ToggleEditor {...{ setEditorOpen }} />
       {romajiOn ?
         <Row entry={romaji} />
         :
