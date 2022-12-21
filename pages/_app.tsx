@@ -18,7 +18,7 @@ export default function NextApp({ Component, pageProps }: AppProps) {
         />
         <meta name="description" content={APP_NAME} />
         <meta name="keywords" content={APP_NAME} />
-        <title>Bayes</title>
+        <title>{APP_NAME}</title>
 
         <link rel="manifest" href="/manifest.json" />
         <link
