@@ -3,7 +3,7 @@ import { Overflow, Stretch } from "../../styled/containers";
 import { FabToggleRomaji, ToggleEditor } from "./Buttons";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
-import Row from "./Row";
+import Rows from "./Rows";
 import { useState } from "react";
 import Editor from "./Editor";
 
@@ -21,9 +21,9 @@ function Home() {
     <ContentDiv id='content-ctn'>
       <ToggleEditor {...{ setEditorOpen }} />
       {romajiOn ?
-        <Row entry={romaji} />
+        <Rows items={romaji} />
         :
-        <Row entry={furigana} />
+        <Rows items={furigana} />
       }
       <Editor {...{ editorOpen, setEditorOpen }} />
       <FabToggleRomaji />
