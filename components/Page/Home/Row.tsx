@@ -4,14 +4,24 @@ import {
 } from "@mui/material"
 import { v4 } from "uuid"
 import parse from "html-react-parser"
+import {
+  FuriganaItem,
+  FuriganaItems,
+  RomajiItem,
+  RomajiItems
+} from "../../../types/content"
 
 
-const Row = ({ entry }: { entry: string[] }) =>
+type RowProps = {
+  entry: FuriganaItems | RomajiItems
+}
+
+const Row = ({ entry }: RowProps) =>
   <Paper
     elevation={1}
     sx={{ m: 1, p: 1 }}
   >
-    {entry.map((r: string) =>
+    {entry.map((r: FuriganaItem | RomajiItem) =>
       <Paper
         key={v4()}
         elevation={3}

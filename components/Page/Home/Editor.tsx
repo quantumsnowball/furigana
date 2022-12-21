@@ -5,6 +5,13 @@ import { contentActions } from "../../../redux/slices/contentSlice"
 import { RootState } from "../../../redux/store"
 import Kuroshiro from "kuroshiro"
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji"
+import {
+  FuriganaItem,
+  FuriganaItems,
+  RomajiItem,
+  RomajiItems,
+  SourceItems
+} from "../../../types/content"
 
 
 const kuroshiro = new Kuroshiro();
@@ -19,13 +26,13 @@ function Editor({ editorOpen, setEditorOpen }: EditorProps) {
   const dispatch = useDispatch()
   const [source, setSource] = [
     useSelector((s: RootState) => s.content.source),
-    (s: string[]) => dispatch(contentActions.setSource(s))
+    (s: SourceItems) => dispatch(contentActions.setSource(s))
   ]
   const setFurigana =
-    (s: string[]) => dispatch(contentActions.setFurigana(s))
+    (s: FuriganaItems) => dispatch(contentActions.setFurigana(s))
 
   const setRomaji =
-    (s: string[]) => dispatch(contentActions.setRomaji(s))
+    (s: RomajiItems) => dispatch(contentActions.setRomaji(s))
 
   const [sourceText, setSourceText] = useState(source.join('\n'))
 
@@ -42,9 +49,9 @@ function Editor({ editorOpen, setEditorOpen }: EditorProps) {
     setSource(vals)
     try {
       setFurigana(await Promise.all(vals.map(
-        async (txt: string) => await convert('furigana', 'hiragana')(txt))))
+        async (txt: FuriganaItem) => await convert('furigana', 'hiragana')(txt))))
       setRomaji(await Promise.all(vals.map(
-        async (txt: string) => await convert('furigana', 'romaji')(txt))))
+        async (txt: RomajiItem) => await convert('furigana', 'romaji')(txt))))
       setEditorOpen(false)
     } catch (err) {
       console.log(err)

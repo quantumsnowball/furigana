@@ -1,17 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { DEFAULT_CONTENT } from '../../constants/content'
+import { FuriganaItems, RomajiItems, SourceItems } from '../../types/content'
 
 
 const contentSlice = createSlice({
   name: 'content',
-  initialState: {
-    source: [''],
-    furigana: [''],
-    romaji: [''],
-  },
+  initialState: DEFAULT_CONTENT,
   reducers: {
-    setSource: (s, a: PayloadAction<string[]>) => { s.source = a.payload },
-    setFurigana: (s, a: PayloadAction<string[]>) => { s.furigana = a.payload },
-    setRomaji: (s, a: PayloadAction<string[]>) => { s.romaji = a.payload },
+    setSource: (s, a: PayloadAction<SourceItems>) => { s.source = a.payload },
+    setFurigana: (s, a: PayloadAction<FuriganaItems>) => { s.furigana = a.payload },
+    setRomaji: (s, a: PayloadAction<RomajiItems>) => { s.romaji = a.payload },
   }
 })
 
