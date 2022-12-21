@@ -13,16 +13,28 @@ type RowProps = {
   item: ContentItem
 }
 
-const Row = ({ romajiOn, item: { furigana, romaji } }: RowProps) =>
+const Row = ({ romajiOn, item: { furigana, romaji, english, chinese } }: RowProps) =>
   <Paper
     elevation={3}
-    sx={{ p: 1, height: 70 }}
+    sx={{ p: 1, minHeight: 70 }}
   >
     <Typography
       variant='h5'
       sx={{ textAlign: 'left' }}
     >
       {parse(romajiOn ? furigana : romaji)}
+    </Typography>
+    <Typography
+      variant='body1'
+      sx={{ textAlign: 'right' }}
+    >
+      {english}
+    </Typography>
+    <Typography
+      variant='body1'
+      sx={{ textAlign: 'right' }}
+    >
+      {chinese}
     </Typography>
   </Paper>
 

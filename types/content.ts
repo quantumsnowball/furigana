@@ -6,6 +6,8 @@ export type UuidItem = ContentValue
 export type SourceItem = ContentValue
 export type FuriganaItem = ContentValue
 export type RomajiItem = ContentValue
+export type EnglishItem = ContentValue
+export type ChineseItem = ContentValue
 
 export type Item = {
   uuid: string

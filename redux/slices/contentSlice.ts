@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { DEFAULT_CONTENT, DEFAULT_CONTENT_ITEMS } from '../../constants/content'
-import { FuriganaItem, RomajiItem, SourceItem } from '../../types/content'
+import { ChineseItem, EnglishItem, FuriganaItem, RomajiItem, SourceItem } from '../../types/content'
 
 
 const contentSlice = createSlice({
@@ -23,6 +23,12 @@ const contentSlice = createSlice({
     },
     setRomaji: (s, a: PayloadAction<RomajiItem>) => {
       s.items[a.payload.i].romaji = a.payload.val
+    },
+    setEnglish: (s, a: PayloadAction<EnglishItem>) => {
+      s.items[a.payload.i].english = a.payload.val
+    },
+    setChinese: (s, a: PayloadAction<ChineseItem>) => {
+      s.items[a.payload.i].chinese = a.payload.val
     },
   }
 })
