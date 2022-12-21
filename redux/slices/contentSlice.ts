@@ -1,15 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { DEFAULT_CONTENT } from '../../constants/content'
-import { FuriganaItems, RomajiItems, SourceItems } from '../../types/content'
+import { DEFAULT_CONTENT, DEFAULT_CONTENT_ITEMS } from '../../constants/content'
+import { FuriganaItem, RomajiItem, SourceItem } from '../../types/content'
 
 
 const contentSlice = createSlice({
   name: 'content',
-  initialState: DEFAULT_CONTENT,
+  initialState: {
+    items: DEFAULT_CONTENT_ITEMS
+  },
   reducers: {
-    setSource: (s, a: PayloadAction<SourceItems>) => { s.source = a.payload },
-    setFurigana: (s, a: PayloadAction<FuriganaItems>) => { s.furigana = a.payload },
-    setRomaji: (s, a: PayloadAction<RomajiItems>) => { s.romaji = a.payload },
+    addContent: (s, a: PayloadAction<{ uuid: string }>) => {
+      s.items.push({ uuid: a.payload.uuid, ...DEFAULT_CONTENT })
+    },
+    clearContent: s => {
+      s.items = []
+    },
+    setSource: (s, a: PayloadAction<SourceItem>) => {
+      s.items[a.payload.i].source = a.payload.val
+    },
+    setFurigana: (s, a: PayloadAction<FuriganaItem>) => {
+      s.items[a.payload.i].furigana = a.payload.val
+    },
+    setRomaji: (s, a: PayloadAction<RomajiItem>) => {
+      s.items[a.payload.i].romaji = a.payload.val
+    },
   }
 })
 

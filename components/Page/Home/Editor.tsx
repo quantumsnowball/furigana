@@ -2,16 +2,15 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { Dispatch, SetStateAction, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { contentActions } from "../../../redux/slices/contentSlice"
-import { RootState } from "../../../redux/store"
+import { v4 } from 'uuid'
 import Kuroshiro from "kuroshiro"
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji"
 import {
   FuriganaItem,
-  FuriganaItems,
   RomajiItem,
-  RomajiItems,
-  SourceItems
+  SourceItem,
 } from "../../../types/content"
+import { RootState } from "../../../redux/store"
 
 
 const kuroshiro = new Kuroshiro();
@@ -24,17 +23,13 @@ interface EditorProps {
 
 function Editor({ editorOpen, setEditorOpen }: EditorProps) {
   const dispatch = useDispatch()
-  const [source, setSource] = [
-    useSelector((s: RootState) => s.content.source),
-    (s: SourceItems) => dispatch(contentActions.setSource(s))
-  ]
-  const setFurigana =
-    (s: FuriganaItems) => dispatch(contentActions.setFurigana(s))
-
-  const setRomaji =
-    (s: RomajiItems) => dispatch(contentActions.setRomaji(s))
-
-  const [sourceText, setSourceText] = useState(source.join('\n'))
+  const items = useSelector((s: RootState) => s.content.items)
+  const addContent = (uuid: string) => dispatch(contentActions.addContent({ uuid }))
+  const clearContent = () => dispatch(contentActions.clearContent())
+  const setSource = (s: SourceItem) => dispatch(contentActions.setSource(s))
+  const setFurigana = (s: FuriganaItem) => dispatch(contentActions.setFurigana(s))
+  const setRomaji = (s: RomajiItem) => dispatch(contentActions.setRomaji(s))
+  const [sourceText, setSourceText] = useState(items.map(m => m.source).join('\n'))
 
   const convert = (mode: string, to: string) =>
     async (txt: string) => await kuroshiro.convert(txt, { mode, to })
@@ -42,17 +37,21 @@ function Editor({ editorOpen, setEditorOpen }: EditorProps) {
   const onClear = () => setSourceText('')
   const onCancel = () => {
     setEditorOpen(false)
-    setSourceText(source.join('\n'))
+    setSourceText(items.map(m => m.source).join('\n'))
   }
   const onConfirm = async () => {
+    clearContent()
     const vals = sourceText.split('\n')
-    setSource(vals)
     try {
-      setFurigana(await Promise.all(vals.map(
-        async (txt: FuriganaItem) => await convert('furigana', 'hiragana')(txt))))
-      setRomaji(await Promise.all(vals.map(
-        async (txt: RomajiItem) => await convert('furigana', 'romaji')(txt))))
-      setEditorOpen(false)
+      for (let i = 0; i < vals.length; i++) {
+        addContent(v4())
+        console.log('added new content')
+        let source = vals[i]
+        setSource({ i, val: source })
+        setFurigana({ i, val: await convert('furigana', 'hiragana')(source) })
+        setRomaji({ i, val: await convert('furigana', 'romaji')(source) })
+        setEditorOpen(false)
+      }
     } catch (err) {
       console.log(err)
     }
@@ -88,7 +87,7 @@ function Editor({ editorOpen, setEditorOpen }: EditorProps) {
           Cancel
         </Button>
         <Button onClick={onConfirm} autoFocus>
-          OK
+          CONFIRM
         </Button>
       </DialogActions>
     </Dialog>

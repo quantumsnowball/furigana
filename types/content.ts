@@ -1,13 +1,24 @@
-export type SourceItem = string
-export type SourceItems = SourceItem[]
-export type FuriganaItem = string
-export type FuriganaItems = FuriganaItem[]
-export type RomajiItem = string
-export type RomajiItems = RomajiItem[]
+type ContentValue = {
+  i: number,
+  val: string
+}
+export type UuidItem = ContentValue
+export type SourceItem = ContentValue
+export type FuriganaItem = ContentValue
+export type RomajiItem = ContentValue
 
-export type Content = {
-  source: SourceItems,
-  furigana: FuriganaItems,
-  romaji: RomajiItems,
+export type Item = {
+  uuid: string
 }
 
+export type Content = {
+  source: string
+  furigana: string
+  romaji: string
+  english: string
+  chinese: string
+}
+
+export type ContentItem = Item & Content
+
+export type ContentItems = ContentItem[]
