@@ -1,4 +1,5 @@
 import { Box, Divider, SwipeableDrawer } from '@mui/material'
+import { APP_NAME } from '../../constants'
 import AboutMenu from './AboutMenu'
 import { MenuTitle } from './common'
 import SettingsMenu from './SettingsMenu'
@@ -26,7 +27,7 @@ function MenuDrawer({ menuOpen, setMenuOpen }: MenuDrawerProps) {
         onClick={() => setMenuOpen(false)}
         onKeyDown={() => setMenuOpen(false)}
       >
-        <MenuTitle title="Furigana" />
+        <MenuTitle title={APP_NAME} />
         <Divider />
         <ThemeMenu />
         <Divider />

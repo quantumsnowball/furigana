@@ -6,7 +6,7 @@ import { RootState } from '../../redux/store'
 import { useDispatch } from 'react-redux'
 import { layoutActions } from '../../redux/slices/layoutSlice'
 import { MenuLabel, MenuButtonGrouper } from './common'
-import { VERSION } from '../../constants'
+import { APP_NAME, VERSION } from '../../constants'
 
 
 function AboutMenu() {
@@ -17,7 +17,7 @@ function AboutMenu() {
     <>
       <MenuButtonGrouper
         icon={<HelpOutlineIcon />}
-        text="About Furigana"
+        text={`About ${APP_NAME}`}
         open={menuAboutExpanded}
         toggle={() => dispatch(layoutActions.toggleMenuAboutExpanded())}
       />
