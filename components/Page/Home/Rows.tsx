@@ -6,14 +6,15 @@ import parse from "html-react-parser"
 import { ContentItem } from "../../../types/content"
 import { RootState } from "../../../redux/store"
 import { useSelector } from "react-redux"
+import { WordMode } from "../../../types"
 
 
 type RowProps = {
-  romajiOn: boolean
+  wordMode: WordMode
   item: ContentItem
 }
 
-const Row = ({ romajiOn, item: { furigana, romaji, english, chinese } }: RowProps) =>
+const Row = ({ wordMode, item: { source, furigana, romaji, english, chinese } }: RowProps) =>
   <Paper
     elevation={3}
     sx={{ p: 1, minHeight: 70 }}
@@ -22,16 +23,16 @@ const Row = ({ romajiOn, item: { furigana, romaji, english, chinese } }: RowProp
       variant='h5'
       sx={{ textAlign: 'left' }}
     >
-      {parse(romajiOn ? furigana : romaji)}
+      {parse([source, furigana, romaji][wordMode])}
     </Typography>
     <Typography
-      variant='body1'
+      variant='body2'
       sx={{ textAlign: 'right' }}
     >
       {english}
     </Typography>
     <Typography
-      variant='body1'
+      variant='body2'
       sx={{ textAlign: 'right' }}
     >
       {chinese}
@@ -39,7 +40,7 @@ const Row = ({ romajiOn, item: { furigana, romaji, english, chinese } }: RowProp
   </Paper>
 
 const Rows = () => {
-  const romajiOn = useSelector((s: RootState) => s.layout.romajiOn)
+  const wordMode = useSelector((s: RootState) => s.layout.wordMode)
   const items = useSelector((s: RootState) => s.content.items)
 
   return (
@@ -47,7 +48,7 @@ const Rows = () => {
       elevation={1}
       sx={{ m: 1, p: 1 }}
     >
-      {items.map((item: ContentItem) => <Row key={item.uuid} {...{ romajiOn, item }} />
+      {items.map((item: ContentItem) => <Row key={item.uuid} {...{ wordMode, item }} />
       )}
     </Paper>
   )

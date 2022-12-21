@@ -4,6 +4,7 @@ import {
 } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { WORD_MODE_TAGS } from "../../../constants";
 import { layoutActions } from "../../../redux/slices/layoutSlice";
 import { RootState } from "../../../redux/store";
 
@@ -24,9 +25,9 @@ export function ToggleEditor({ setEditorOpen }: ToogleEditorProps) {
 
 export function FabToggleRomaji() {
   const dispatch = useDispatch()
-  const [romajiOn, toggleRomajiOn] = [
-    useSelector((s: RootState) => s.layout.romajiOn),
-    () => dispatch(layoutActions.toggleRomajiOn())
+  const [wordMode, toggleWordMode] = [
+    useSelector((s: RootState) => s.layout.wordMode),
+    () => dispatch(layoutActions.toggleWordMode())
   ]
 
   return (
@@ -37,9 +38,9 @@ export function FabToggleRomaji() {
         bottom: 25,
         right: 25
       }}
-      onClick={toggleRomajiOn}
+      onClick={toggleWordMode}
     >
-      {romajiOn ? 'A' : 'あ'}
+      {WORD_MODE_TAGS[wordMode]}
     </Fab>
   )
 }

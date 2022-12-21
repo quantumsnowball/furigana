@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { WordMode } from '../../types'
 
 
 const layoutSlice = createSlice({
@@ -7,7 +8,8 @@ const layoutSlice = createSlice({
     menuThemeExpanded: false,
     menuSettingsExpanded: false,
     menuAboutExpanded: false,
-    romajiOn: false
+    romajiOn: false,
+    wordMode: WordMode.Original
   },
   reducers: {
     toggleMenuThemeExpanded: s => {
@@ -21,6 +23,9 @@ const layoutSlice = createSlice({
     },
     toggleRomajiOn: s => {
       s.romajiOn = !s.romajiOn
+    },
+    toggleWordMode: s => {
+      s.wordMode = s.wordMode === 2 ? 0 : s.wordMode + 1
     }
   }
 })
