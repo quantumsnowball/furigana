@@ -13,7 +13,7 @@ export type Item = {
   uuid: string
 }
 
-export type Content = {
+export type ContentData = {
   source: string
   furigana: string
   romaji: string
@@ -21,6 +21,11 @@ export type Content = {
   chinese: string
 }
 
-export type ContentItem = Item & Content
+export type ContentItem = Item & ContentData
 
 export type ContentItems = ContentItem[]
+
+export type Content = {
+  title: string
+  items: ContentItems
+}

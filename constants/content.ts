@@ -1,6 +1,6 @@
-import { Content, ContentItems } from "../types/content";
+import { ContentData, ContentItems } from "../types/content";
 
-export const DEFAULT_CONTENT: Content = {
+export const DEFAULT_CONTENT_DATA: ContentData = {
   source: '',
   furigana: '',
   romaji: '',
@@ -9,3 +9,9 @@ export const DEFAULT_CONTENT: Content = {
 }
 
 export const DEFAULT_CONTENT_ITEMS: ContentItems = []
+
+export const DEFAULT_CONTENT = {
+  title: 'Untitled',
+  items: DEFAULT_CONTENT_ITEMS
+}
+
