@@ -5,7 +5,8 @@ const layoutSlice = createSlice({
   name: 'layout',
   initialState: {
     menuThemeExpanded: false,
-    menuAboutExpanded: false
+    menuAboutExpanded: false,
+    romajiOn: false
   },
   reducers: {
     toggleMenuThemeExpanded: s => {
@@ -13,6 +14,9 @@ const layoutSlice = createSlice({
     },
     toggleMenuAboutExpanded: s => {
       s.menuAboutExpanded = !s.menuAboutExpanded
+    },
+    toggleRomajiOn: s => {
+      s.romajiOn = !s.romajiOn
     }
   }
 })

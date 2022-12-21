@@ -1,9 +1,17 @@
-import { Button, Fab, Paper, styled, TextField, Typography } from "@mui/material";
+import {
+  Paper,
+  styled,
+  TextField,
+  Typography
+} from "@mui/material";
 import { useState } from "react";
 import { Overflow, Stretch } from "../../styled/containers";
 import Kuroshiro from "kuroshiro"
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji"
 import parse from "html-react-parser"
+import { FabToggleRomaji } from "./Buttons";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 
 const ContentDiv = styled(Overflow(Stretch('div')))`
@@ -16,7 +24,7 @@ function Home() {
   const [source, setSource] = useState([''])
   const [furigana, setFurigana] = useState([''])
   const [romaji, setRomaji] = useState([''])
-  const [romajiOn, setRomajiOn] = useState(false)
+  const romajiOn = useSelector((s: RootState) => s.layout.romajiOn)
 
   const convert = (mode: string, to: string) =>
     async (txt: string) => await kuroshiro.convert(txt, { mode, to })
@@ -46,7 +54,7 @@ function Home() {
     <ContentDiv id='content-ctn'>
       <Paper
         elevation={1}
-        sx={{p:1}}
+        sx={{ p: 1 }}
       >
         <TextField
           fullWidth
@@ -72,15 +80,7 @@ function Home() {
         :
         <Row entry={furigana} />
       }
-      <Fab
-        color='primary'
-        sx={{
-          position: 'absolute',
-          bottom: 25,
-          right: 25
-        }}
-        onClick={() => setRomajiOn(!romajiOn)}
-      >{romajiOn ? 'A' : 'あ'}</Fab>
+      <FabToggleRomaji />
     </ContentDiv>
   )
 }
