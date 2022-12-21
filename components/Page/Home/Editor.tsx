@@ -54,7 +54,7 @@ function Editor({ editorOpen, setEditorOpen }: EditorProps) {
   }
   const onConfirm = async () => {
     clearContent()
-    const vals = sourceText.split('\n')
+    const vals = sourceText.length === 0 ? [] : sourceText.split('\n')
     try {
       for (let i = 0; i < vals.length; i++) {
         addContent(v4())
