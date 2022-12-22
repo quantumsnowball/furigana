@@ -27,11 +27,13 @@ const BottomBar = () => {
             <EditIcon />
           </IconButton>
           <ToolSection />
-          <IconButton onClick={() => {
-            router.push(router.pathname === '/favorite' ? '/' : '/favorite')
-          }}>
+          <IconButton
+            color="inherit"
+            onClick={() => {
+              router.push(router.pathname === '/favorite' ? '/' : '/favorite')
+            }}>
             {router.pathname === '/' ?
-              <StarIcon sx={{ color: '#fff' }} /> : <EditIcon sx={{ color: '#fff' }} />}
+              <StarIcon /> : <EditIcon />}
           </IconButton>
         </Toolbar>
       </AppBar>

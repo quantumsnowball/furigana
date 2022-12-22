@@ -34,9 +34,11 @@ const MenuBar = () => {
             <MenuIcon />
           </IconButton>
           <TitleSection />
-          <IconButton onClick={() => dispatch(themeActions.toggleMode())}>
+          <IconButton
+            color='inherit'
+            onClick={() => dispatch(themeActions.toggleMode())}>
             {theme.palette.mode === 'light' ?
-              <LightModeIcon sx={{ color: '#fff' }} /> : <DarkModeIcon />}
+              <LightModeIcon /> : <DarkModeIcon />}
           </IconButton>
         </Toolbar>
       </AppBar>

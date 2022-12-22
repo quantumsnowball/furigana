@@ -18,7 +18,7 @@ function Toolbar() {
       sx={{ flex: 1 }}
     >
       <IconButton
-        sx={{ color: '#fff' }}
+        color='inherit'
         onClick={toggleWordMode}
       >
         {WORD_MODE_TAGS[wordMode]}
