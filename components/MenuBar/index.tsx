@@ -11,23 +11,28 @@ import { RootState } from "../../redux/store"
 import { sharedActions } from "../../redux/slices/sharedSlice"
 
 
-const MenuBar = () => {
+const MenuButton = () => {
   const dispatch = useDispatch()
   const [menuOpen, setMenuOpen] = [
     useSelector((s: RootState) => s.shared.menuOpen),
     (open: boolean) => dispatch(sharedActions.setMenuOpen(open))
   ]
+  return (
+    <IconButton
+      color="inherit"
+      onClick={() => setMenuOpen(!menuOpen)}
+    >
+      <MenuIcon />
+    </IconButton>
+  )
+}
 
+const MenuBar = () => {
   return (
     <>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            color="inherit"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <MenuIcon />
-          </IconButton>
+          <MenuButton />
           <TitleSection />
         </Toolbar>
       </AppBar>
