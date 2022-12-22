@@ -7,11 +7,11 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt'
 import SaveAsIcon from '@mui/icons-material/SaveAs'
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../../redux/store"
-import { useState } from "react"
 import EditDialog from "./EditDialog"
 import { ErrorAlert, OverwriteAlert, ResetAlert, SavedAlert } from "./Alert"
 import { Content } from "../../../../types/content"
 import { favoriteActions } from "../../../../redux/slices/favoriteSlice"
+import { sharedActions } from "../../../../redux/slices/sharedSlice"
 
 
 export function Toolbar() {
@@ -22,11 +22,21 @@ export function Toolbar() {
     useSelector((s: RootState) => s.favorite.items),
     (c: Content) => dispatch(favoriteActions.setItem(c))
   ]
-  const [editOpen, setEditOpen] = useState(false)
-  const [savedAlertOpen, setSavedAlertOpen] = useState(false)
-  const [resetAlertOpen, setResetAlertOpen] = useState(false)
-  const [overwriteAlertOpen, setOverwriteAlertOpen] = useState(false)
-  const [titleErrorAlertOpen, setTitleErrorAlertOpen] = useState(false)
+  const [setEditOpen] = [
+    (open: boolean) => dispatch(sharedActions.setEditTitleOpen(open))
+  ]
+  const [setSavedAlertOpen] = [
+    (open: boolean) => dispatch(sharedActions.setSavedAlertOpen(open))
+  ]
+  const [setResetAlertOpen] = [
+    (open: boolean) => dispatch(sharedActions.setResetAlertOpen(open))
+  ]
+  const [setOverwriteAlertOpen] = [
+    (open: boolean) => dispatch(sharedActions.setOverwriteAlertOpen(open))
+  ]
+  const [setTitleErrorAlertOpen] = [
+    (open: boolean) => dispatch(sharedActions.setTitleErrorAlertOpen(open))
+  ]
 
   const ResetButton = () =>
     <IconButton
@@ -71,18 +81,12 @@ export function Toolbar() {
         </Typography>
         <SaveAsButton />
       </Box>
-      <EditDialog {...{ editOpen, setEditOpen }} />
-      <SavedAlert {...{ savedAlertOpen, setSavedAlertOpen }} />
-      <ResetAlert {...{ resetAlertOpen, setResetAlertOpen }} />
-      <OverwriteAlert {...{
-        overwriteAlertOpen,
-        setOverwriteAlertOpen,
-        setSavedAlertOpen
-      }} />
+      <EditDialog />
+      <SavedAlert />
+      <ResetAlert />
+      <OverwriteAlert />
       <ErrorAlert
         text='Please enter a title before saving.'
-        open={titleErrorAlertOpen}
-        setOpen={setTitleErrorAlertOpen}
       />
     </>
   )

@@ -7,22 +7,22 @@ import {
   DialogTitle,
   TextField
 } from "@mui/material";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { contentActions } from "../../../../redux/slices/contentSlice";
+import { sharedActions } from "../../../../redux/slices/sharedSlice";
 import { RootState } from "../../../../redux/store";
 
 
-interface EditDialogProps {
-  editOpen: boolean
-  setEditOpen: Dispatch<SetStateAction<boolean>>
-}
-
-function EditDialog({ editOpen, setEditOpen }: EditDialogProps) {
+function EditDialog() {
   const dispatch = useDispatch()
   const [title, setTitle] = [
     useSelector((s: RootState) => s.content.title),
     (txt: string) => dispatch(contentActions.setTitle(txt))
+  ]
+  const [editTitleOpen, setEditOpen] = [
+    useSelector((s: RootState) => s.shared.editTitleOpen),
+    (open: boolean) => dispatch(sharedActions.setEditTitleOpen(open))
   ]
   const [titleLocal, setTitleLocal] = useState(title)
 
@@ -37,7 +37,7 @@ function EditDialog({ editOpen, setEditOpen }: EditDialogProps) {
 
   return (
     <Dialog
-      open={editOpen}
+      open={editTitleOpen}
       onClose={handleClose}
     >
       <DialogTitle>Worksheet Title</DialogTitle>

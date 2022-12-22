@@ -1,5 +1,4 @@
 import { Alert, Button, Snackbar } from "@mui/material";
-import { Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { DEFAULT_CONTENT } from "../../../../constants/content";
@@ -12,15 +11,16 @@ import {
   ERROR_ALERT_DURATION,
   SUCCESS_ALERT_DURATION
 } from "../../../../constants/layout";
+import { sharedActions } from "../../../../redux/slices/sharedSlice";
 
 
-interface SavedAlertProps {
-  savedAlertOpen: boolean
-  setSavedAlertOpen: Dispatch<SetStateAction<boolean>>
-}
-
-export function SavedAlert({ savedAlertOpen, setSavedAlertOpen }: SavedAlertProps) {
+export function SavedAlert() {
+  const dispatch = useDispatch()
   const title = useSelector((s: RootState) => s.content.title)
+  const [savedAlertOpen, setSavedAlertOpen] = [
+    useSelector((s: RootState) => s.shared.savedAlertOpen),
+    (open: boolean) => dispatch(sharedActions.setSavedAlertOpen(open))
+  ]
 
   return (
     <Snackbar
@@ -44,16 +44,12 @@ export function SavedAlert({ savedAlertOpen, setSavedAlertOpen }: SavedAlertProp
   )
 }
 
-interface ResetAlertProps {
-  resetAlertOpen: boolean
-  setResetAlertOpen: Dispatch<SetStateAction<boolean>>
-}
-
-export function ResetAlert({
-  resetAlertOpen,
-  setResetAlertOpen,
-}: ResetAlertProps) {
+export function ResetAlert() {
   const dispatch = useDispatch()
+  const [resetAlertOpen, setResetAlertOpen] = [
+    useSelector((s: RootState) => s.shared.resetAlertOpen),
+    (open: boolean) => dispatch(sharedActions.setResetAlertOpen(open))
+  ]
   const setContent = (c: Content) => dispatch(contentActions.setContent(c))
 
   return (
@@ -92,21 +88,18 @@ export function ResetAlert({
   )
 }
 
-interface OverwriteAlertProps {
-  overwriteAlertOpen: boolean
-  setOverwriteAlertOpen: Dispatch<SetStateAction<boolean>>
-  setSavedAlertOpen: Dispatch<SetStateAction<boolean>>
-}
-
-export function OverwriteAlert({
-  overwriteAlertOpen,
-  setOverwriteAlertOpen,
-  setSavedAlertOpen
-}: OverwriteAlertProps) {
+export function OverwriteAlert() {
   const dispatch = useDispatch()
   const title = useSelector((s: RootState) => s.content.title)
   const items = useSelector((s: RootState) => s.content.items)
   const replaceFavorite = (c: Content) => dispatch(favoriteActions.setItem(c))
+  const [overwriteAlertOpen, setOverwriteAlertOpen] = [
+    useSelector((s: RootState) => s.shared.overwriteAlertOpen),
+    (open: boolean) => dispatch(sharedActions.setOverwriteAlertOpen(open))
+  ]
+  const setSavedAlertOpen =
+    (open: boolean) => dispatch(sharedActions.setSavedAlertOpen(open))
+
 
   return (
     <Snackbar
@@ -145,14 +138,16 @@ export function OverwriteAlert({
   )
 }
 
-
 interface ErrorAlertProps {
   text: string
-  open: boolean
-  setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export function ErrorAlert({ text, open, setOpen }: ErrorAlertProps) {
+export function ErrorAlert({ text }: ErrorAlertProps) {
+  const dispatch = useDispatch()
+  const [open, setOpen] = [
+    useSelector((s: RootState) => s.shared.titleErrorAlertOpen),
+    (open: boolean) => dispatch(sharedActions.setTitleErrorAlertOpen(open))
+  ]
   return (
     <Snackbar
       anchorOrigin={{
