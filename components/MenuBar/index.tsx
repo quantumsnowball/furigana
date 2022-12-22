@@ -5,10 +5,13 @@ import {
 } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu'
 import MenuDrawer from "./MenuDrawer"
+import SaveAsIcon from '@mui/icons-material/SaveAs'
 import { useDispatch, useSelector } from "react-redux"
 import TitleSection from "./TitleSection"
 import { RootState } from "../../redux/store"
 import { sharedActions } from "../../redux/slices/sharedSlice"
+import { Content } from "../../types/content"
+import { favoriteActions } from "../../redux/slices/favoriteSlice"
 
 
 const MenuButton = () => {
@@ -27,6 +30,45 @@ const MenuButton = () => {
   )
 }
 
+const SaveAsButton = () => {
+  const dispatch = useDispatch()
+  const title = useSelector((s: RootState) => s.content.title)
+  const items = useSelector((s: RootState) => s.content.items)
+  const [favorites, addFavorite] = [
+    useSelector((s: RootState) => s.favorite.items),
+    (c: Content) => dispatch(favoriteActions.setItem(c))
+  ]
+  const setSavedAlertOpen = 
+    (open: boolean) => dispatch(sharedActions.setSavedAlertOpen(open))
+ 
+  const setOverwriteAlertOpen = 
+    (open: boolean) => dispatch(sharedActions.setOverwriteAlertOpen(open))
+ 
+  const setTitleErrorAlertOpen = 
+    (open: boolean) => dispatch(sharedActions.setTitleErrorAlertOpen(open))
+ 
+  return (
+    <IconButton
+      sx={{ color: '#ccc' }}
+      aria-label='Save As Favorite'
+      onClick={() => {
+        if (title.length === 0) {
+          setTitleErrorAlertOpen(true)
+          return
+        }
+        if (title in favorites) {
+          setOverwriteAlertOpen(true)
+          return
+        }
+        addFavorite({ title, items })
+        setSavedAlertOpen(true)
+      }}
+    >
+      <SaveAsIcon />
+    </IconButton>
+  )
+}
+
 const MenuBar = () => {
   return (
     <>
@@ -34,6 +76,7 @@ const MenuBar = () => {
         <Toolbar>
           <MenuButton />
           <TitleSection />
+          <SaveAsButton />
         </Toolbar>
       </AppBar>
       <MenuDrawer />
