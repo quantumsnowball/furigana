@@ -3,8 +3,9 @@ import {
   IconButton,
   Toolbar
 } from "@mui/material"
+import CodeIcon from '@mui/icons-material/Code'
 import StarIcon from '@mui/icons-material/Star'
-import EditIcon from '@mui/icons-material/Edit'
+import TranslateIcon from '@mui/icons-material/Translate'
 import { useRouter } from "next/router"
 import ToolSection from "./ToolSection"
 
@@ -24,7 +25,7 @@ const BottomBar = () => {
             color="inherit"
             aria-label="menu"
           >
-            <EditIcon />
+            <CodeIcon />
           </IconButton>
           <ToolSection />
           <IconButton
@@ -33,7 +34,7 @@ const BottomBar = () => {
               router.push(router.pathname === '/favorite' ? '/' : '/favorite')
             }}>
             {router.pathname === '/' ?
-              <StarIcon /> : <EditIcon />}
+              <StarIcon /> : <TranslateIcon />}
           </IconButton>
         </Toolbar>
       </AppBar>
