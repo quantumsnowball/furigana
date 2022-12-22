@@ -25,10 +25,7 @@ const BottomBar = () => {
       >
         <Toolbar>
           <IconButton
-            size="large"
-            edge="start"
             color="inherit"
-            aria-label="menu"
             onClick={() => setEditorOpen(true)}
           >
             <CodeIcon />
