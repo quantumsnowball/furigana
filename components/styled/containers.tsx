@@ -2,7 +2,7 @@ import { styled } from '@mui/material'
 
 
 type Element = any
-type Styler = (e: Element) => Element
+type Styler = (_: Element) => Element
 
 export const Overflow: Styler = e => styled(e)`
   /* should allow children to overflow by creating a scroll bar itself and keep its height constant */
