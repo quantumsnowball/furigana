@@ -7,17 +7,21 @@ import {
 import MenuIcon from '@mui/icons-material/Menu'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
-import { useState } from "react"
 import MenuDrawer from "./MenuDrawer"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { themeActions } from "../../redux/slices/themeSlice"
 import TitleSection from "./TitleSection"
+import { RootState } from "../../redux/store"
+import { sharedActions } from "../../redux/slices/sharedSlice"
 
 
 const MenuBar = () => {
   const dispatch = useDispatch()
   const theme = useTheme()
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = [
+    useSelector((s: RootState) => s.shared.menuOpen),
+    (open: boolean) => dispatch(sharedActions.setMenuOpen(open))
+  ]
 
   return (
     <>
@@ -38,7 +42,7 @@ const MenuBar = () => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <MenuDrawer {...{ menuOpen, setMenuOpen }} />
+      <MenuDrawer />
     </>
   )
 }

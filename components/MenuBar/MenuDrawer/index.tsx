@@ -1,17 +1,21 @@
 import { Box, Divider, SwipeableDrawer } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
 import { APP_NAME } from '../../../constants'
+import { sharedActions } from '../../../redux/slices/sharedSlice'
+import { RootState } from '../../../redux/store'
 import AboutMenu from './AboutMenu'
 import { MenuTitle } from './common'
 import SettingsMenu from './SettingsMenu'
 import ThemeMenu from './ThemeMenu'
 
 
-interface MenuDrawerProps {
-  menuOpen: boolean,
-  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
-}
+function MenuDrawer() {
+  const dispatch = useDispatch()
+  const [menuOpen, setMenuOpen] = [
+    useSelector((s: RootState) => s.shared.menuOpen),
+    (open: boolean) => dispatch(sharedActions.setMenuOpen(open))
+  ]
 
-function MenuDrawer({ menuOpen, setMenuOpen }: MenuDrawerProps) {
   return (
     <SwipeableDrawer
       anchor="left"
