@@ -15,6 +15,7 @@ import {
   SourceItem,
 } from "../../../types/content"
 import { RootState } from "../../../redux/store"
+import { sharedActions } from "../../../redux/slices/sharedSlice"
 
 
 const kuroshiro = new Kuroshiro();
@@ -22,13 +23,12 @@ const kuroshiro = new Kuroshiro();
 
 translate.engine = 'google'
 
-interface EditorProps {
-  editorOpen: boolean,
-  setEditorOpen: Dispatch<SetStateAction<boolean>>
-}
-
-function Editor({ editorOpen, setEditorOpen }: EditorProps) {
+function Editor() {
   const dispatch = useDispatch()
+  const [editorOpen, setEditorOpen] = [
+    useSelector((s: RootState) => s.shared.editorOpen),
+    (open: boolean) => dispatch(sharedActions.setEditorOpen(open))
+  ]
   const items = useSelector((s: RootState) => s.content.items)
   const addContent = (uuid: string) => dispatch(contentActions.addContent({ uuid }))
   const clearContent = () => dispatch(contentActions.clearContent())

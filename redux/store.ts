@@ -9,6 +9,7 @@ import { themeReducer } from './slices/themeSlice'
 import { layoutReducer } from './slices/layoutSlice'
 import { contentReducer } from './slices/contentSlice'
 import { favoriteReducer } from './slices/favoriteSlice'
+import { sharedReducer } from './slices/sharedSlice'
 
 
 // reducers
@@ -16,12 +17,13 @@ const rootReducer = combineReducers({
   theme: themeReducer,
   layout: layoutReducer,
   content: contentReducer,
-  favorite: favoriteReducer
+  favorite: favoriteReducer,
+  shared: sharedReducer
 })
 
 // store
 export const store = configureStore({
-  reducer: persistReducer({ key: 'root', storage, blacklist: [] }, rootReducer),
+  reducer: persistReducer({ key: 'root', storage, blacklist: ['shared',] }, rootReducer),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

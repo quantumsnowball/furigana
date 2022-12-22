@@ -8,10 +8,15 @@ import StarIcon from '@mui/icons-material/Star'
 import TranslateIcon from '@mui/icons-material/Translate'
 import { useRouter } from "next/router"
 import ToolSection from "./ToolSection"
+import { useDispatch } from "react-redux"
+import { sharedActions } from "../../redux/slices/sharedSlice"
 
 
 const BottomBar = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
+  const setEditorOpen =
+    (open: boolean) => dispatch(sharedActions.setEditorOpen(open))
 
   return (
     <>
@@ -24,6 +29,7 @@ const BottomBar = () => {
             edge="start"
             color="inherit"
             aria-label="menu"
+            onClick={() => setEditorOpen(true)}
           >
             <CodeIcon />
           </IconButton>

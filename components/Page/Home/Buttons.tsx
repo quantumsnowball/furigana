@@ -1,14 +1,16 @@
 import {
   Button
 } from "@mui/material";
-import { Dispatch, SetStateAction } from "react";
+import { useDispatch } from "react-redux";
+import { sharedActions } from "../../../redux/slices/sharedSlice";
 
 
-interface ToogleEditorProps {
-  setEditorOpen: Dispatch<SetStateAction<boolean>>
-}
+export function ToggleEditor() {
+  const dispatch = useDispatch()
+  const setEditorOpen =
+    (open: boolean) => dispatch(sharedActions.setEditorOpen(open))
 
-export function ToggleEditor({ setEditorOpen }: ToogleEditorProps) {
+
   return (
     <Button
       onClick={() => setEditorOpen(true)}
