@@ -5,6 +5,7 @@ import { sharedActions } from '../../../redux/slices/sharedSlice'
 import { RootState } from '../../../redux/store'
 import AboutMenu from './AboutMenu'
 import { MenuTitle } from './common'
+import FavoriteMenu from './FavoriteMenu'
 import SettingsMenu from './SettingsMenu'
 import ThemeMenu from './ThemeMenu'
 
@@ -34,6 +35,8 @@ function MenuDrawer() {
         <MenuTitle title={APP_NAME} />
         <Divider />
         <ThemeMenu />
+        <Divider />
+        <FavoriteMenu />
         <Divider />
         <SettingsMenu />
         <Divider />
