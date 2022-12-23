@@ -10,12 +10,8 @@ import { MenuButtonGrouper, MenuButton } from './common'
 import { FavoriteItems } from '../../../types/favorite'
 import { favoriteActions } from '../../../redux/slices/favoriteSlice'
 import { useRouter } from "next/router"
-import {
-  fileOpen,
-  directoryOpen,
-  fileSave,
-  supported,
-} from 'browser-fs-access';
+import { fileOpen, fileSave } from 'browser-fs-access';
+import { formatedDate, formatedTime } from '../../../utils'
 
 
 function FavoriteMenu() {
@@ -63,11 +59,13 @@ function FavoriteMenu() {
             text='Export'
             onClick={async () => {
               try {
+                const dt = new Date()
+                const tag = `${formatedDate(dt)}-${formatedTime(dt)}`
                 const blob = new Blob([JSON.stringify(favoriteItems, null, 2)], {
                   type: "application/json"
                 })
                 await fileSave(blob, {
-                  fileName: 'favorite-items.json',
+                  fileName: `${tag}-favorite-items.json`,
                   extensions: ['.json',]
                 })
                 alert('Successfully exported favorite items.')
