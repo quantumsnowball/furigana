@@ -5,7 +5,7 @@ import {
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../../redux/store"
 import EditDialog from "./EditDialog"
-import { ErrorAlert, OverwriteAlert, SavedAlert } from "./Alert"
+import { ErrorAlert, LoadedAlert, OverwriteAlert, SavedAlert } from "./Alert"
 import { sharedActions } from "../../../../redux/slices/sharedSlice"
 
 
@@ -29,6 +29,7 @@ export function Toolbar() {
         </Typography>
       </Box>
       <EditDialog />
+      <LoadedAlert />
       <SavedAlert />
       <OverwriteAlert />
       <ErrorAlert

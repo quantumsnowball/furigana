@@ -9,6 +9,7 @@ import { contentActions } from "../../../redux/slices/contentSlice"
 import { Content } from "../../../types/content"
 import ClearIcon from '@mui/icons-material/Clear'
 import { favoriteActions } from "../../../redux/slices/favoriteSlice"
+import { sharedActions } from "../../../redux/slices/sharedSlice"
 
 
 interface SummaryProps {
@@ -32,6 +33,7 @@ function Summary({ content }: SummaryProps) {
       }}
       onClick={() => {
         setContent(content)
+        dispatch(sharedActions.setLoadedAlertOpen(true))
         router.push('/')
       }}
     >

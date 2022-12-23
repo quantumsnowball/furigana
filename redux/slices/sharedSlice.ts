@@ -7,6 +7,7 @@ const sharedSlice = createSlice({
     menuOpen: false,
     editorOpen: false,
     editTitleOpen: false,
+    loadedAlertOpen: false,
     savedAlertOpen: false,
     resetAlertOpen: false,
     overwriteAlertOpen: false,
@@ -21,6 +22,9 @@ const sharedSlice = createSlice({
     },
     setEditTitleOpen: (s, a: PayloadAction<boolean>) => {
       s.editTitleOpen = a.payload
+    },
+    setLoadedAlertOpen: (s, a: PayloadAction<boolean>) => {
+      s.loadedAlertOpen = a.payload
     },
     setSavedAlertOpen: (s, a: PayloadAction<boolean>) => {
       s.savedAlertOpen = a.payload
