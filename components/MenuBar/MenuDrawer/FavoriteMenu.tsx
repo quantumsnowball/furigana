@@ -10,6 +10,12 @@ import { MenuButtonGrouper, MenuButton } from './common'
 import { FavoriteItems } from '../../../types/favorite'
 import { favoriteActions } from '../../../redux/slices/favoriteSlice'
 import { useRouter } from "next/router"
+import {
+  fileOpen,
+  directoryOpen,
+  fileSave,
+  supported,
+} from 'browser-fs-access';
 
 
 function FavoriteMenu() {
@@ -36,20 +42,13 @@ function FavoriteMenu() {
             text='Import'
             onClick={async () => {
               try {
-                const [fileHandle] = await window.showOpenFilePicker({
-                  types: [
-                    {
-                      description: 'JSON',
-                      accept: {
-                        'json/*': ['.json',]
-                      }
-                    }
-                  ],
+                const blob = await fileOpen({
+                  description: 'JSON files',
+                  mimeTypes: ['application/json',],
+                  extensions: ['.json',],
                   multiple: false
                 })
-                const file = await fileHandle.getFile()
-                const content = await file.text()
-                const items = JSON.parse(content)
+                const items = JSON.parse(await blob.text())
                 setFavoriteItems(items)
                 router.push('/favorite')
                 alert('Successfully imported favorite items.')
