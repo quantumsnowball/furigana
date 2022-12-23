@@ -1,13 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Content } from '../../types/content'
+import { FavoriteItems } from '../../types/favorite'
 
 
 const favoriteSlice = createSlice({
   name: 'favorite',
   initialState: {
-    items: {} as { [key: string]: Content }
+    items: {} as FavoriteItems
   },
   reducers: {
+    setItems: (s, a: PayloadAction<FavoriteItems>) => {
+      s.items = a.payload
+    },
     setItem: (s, a: PayloadAction<Content>) => {
       s.items[a.payload.title] = a.payload
     },
