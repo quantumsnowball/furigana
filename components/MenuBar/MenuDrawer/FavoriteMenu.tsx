@@ -63,10 +63,13 @@ function FavoriteMenu() {
             text='Export'
             onClick={async () => {
               try {
-                const fileHandle = await window.showSaveFilePicker({ suggestedName: 'favorite-items.json' });
-                const file = await fileHandle.createWritable()
-                await file.write(JSON.stringify(favoriteItems, null, 2))
-                await file.close()
+                const blob = new Blob([JSON.stringify(favoriteItems, null, 2)], {
+                  type: "application/json"
+                })
+                await fileSave(blob, {
+                  fileName: 'favorite-items.json',
+                  extensions: ['.json',]
+                })
                 alert('Successfully exported favorite items.')
               } catch (err) {
                 console.log(err)
