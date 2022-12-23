@@ -1,6 +1,6 @@
 import { Box, Divider, SwipeableDrawer } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { APP_NAME } from '../../../constants'
+import { APP_NAME, VERSION } from '../../../constants'
 import { sharedActions } from '../../../redux/slices/sharedSlice'
 import { RootState } from '../../../redux/store'
 import AboutMenu from './AboutMenu'
@@ -32,7 +32,7 @@ function MenuDrawer() {
         onClick={() => setMenuOpen(false)}
         onKeyDown={() => setMenuOpen(false)}
       >
-        <MenuTitle title={APP_NAME} />
+        <MenuTitle title={`${APP_NAME}, ${VERSION}`} />
         <Divider />
         <ThemeMenu />
         <Divider />
