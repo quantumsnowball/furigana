@@ -53,7 +53,7 @@ function FavoriteMenu() {
             onClick={async () => {
               const fileHandle = await window.showSaveFilePicker({ suggestedName: 'favorite-items.json' });
               const file = await fileHandle.createWritable()
-              await file.write(JSON.stringify(favoriteItems))
+              await file.write(JSON.stringify(favoriteItems, null, 2))
               await file.close()
             }}
             level={1}
