@@ -51,6 +51,7 @@ function FavoriteMenu() {
               const items = JSON.parse(content)
               setFavoriteItems(items)
               router.push('/favorite')
+              alert('Successfully imported favorite items.')
             }}
             level={1}
           />
@@ -62,6 +63,7 @@ function FavoriteMenu() {
               const file = await fileHandle.createWritable()
               await file.write(JSON.stringify(favoriteItems, null, 2))
               await file.close()
+              alert('Successfully exported favorite items.')
             }}
             level={1}
           />
