@@ -1,0 +1,45 @@
+{
+  "name": "Furigana",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "fix": "next lint --fix",
+    "typecheck": "tsc --noEmit --strict --noUnusedLocals --noUnusedParameters"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.15",
+    "@mui/material": "^5.10.15",
+    "@reduxjs/toolkit": "^1.9.0",
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "@types/react-redux": "^7.1.24",
+    "@types/uuid": "^9.0.0",
+    "@types/wicg-file-system-access": "^2020.9.5",
+    "browser-fs-access": "^0.31.1",
+    "chinese-s2t": "^1.0.0",
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.5",
+    "html-react-parser": "^3.0.4",
+    "kuroshiro": "^1.2.0",
+    "kuroshiro-analyzer-kuromoji": "^1.1.0",
+    "next": "13.0.5",
+    "next-pwa": "^5.6.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.5",
+    "redux-persist": "^6.0.0",
+    "translate": "^1.4.1",
+    "typescript": "4.9.3",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-unused-imports": "^2.0.0"
+  }
+}
