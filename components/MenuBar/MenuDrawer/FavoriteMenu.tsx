@@ -26,8 +26,13 @@ function FavoriteMenu() {
           <MenuButton
             icon={<UploadIcon />}
             text='Import'
-            onClick={e => {
-              alert('import')
+            onClick={async () => {
+              const [fileHandle] = await window.showOpenFilePicker()
+              const file = await fileHandle.getFile()
+              const content = await file.text()
+              const obj = JSON.parse(content)
+              console.log(obj)
+              console.log(typeof obj)
             }}
             level={1}
           />
