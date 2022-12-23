@@ -9,6 +9,7 @@ import { layoutActions } from '../../../redux/slices/layoutSlice'
 import { MenuButtonGrouper, MenuButton } from './common'
 import { FavoriteItems } from '../../../types/favorite'
 import { favoriteActions } from '../../../redux/slices/favoriteSlice'
+import { useRouter } from "next/router"
 
 
 function FavoriteMenu() {
@@ -18,6 +19,7 @@ function FavoriteMenu() {
     useSelector((s: RootState) => s.favorite.items),
     (items: FavoriteItems) => dispatch(favoriteActions.setItems(items))
   ]
+  const router = useRouter()
 
   return (
     <>
@@ -48,6 +50,7 @@ function FavoriteMenu() {
               const content = await file.text()
               const items = JSON.parse(content)
               setFavoriteItems(items)
+              router.push('/favorite')
             }}
             level={1}
           />
