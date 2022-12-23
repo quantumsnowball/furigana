@@ -37,7 +37,7 @@ function Summary({ content }: SummaryProps) {
       }}
       onClick={() => {
         setContent(content)
-        dispatch(sharedActions.setLoadedAlertOpen(true))
+        dispatch(sharedActions.showSuccessAlert(`Worksheet '${title}' loaded successfully.`))
         router.push('/')
       }}
     >

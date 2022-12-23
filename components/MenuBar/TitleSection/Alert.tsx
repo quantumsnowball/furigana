@@ -41,36 +41,6 @@ export function SuccessAlert() {
   )
 }
 
-export function LoadedAlert() {
-  const dispatch = useDispatch()
-  const title = useSelector((s: RootState) => s.content.title)
-  const [loadedAlertOpen, setLoadedAlertOpen] = [
-    useSelector((s: RootState) => s.shared.loadedAlertOpen),
-    (open: boolean) => dispatch(sharedActions.setLoadedAlertOpen(open))
-  ]
-
-  return (
-    <Snackbar
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'center'
-      }}
-      autoHideDuration={SUCCESS_ALERT_DURATION}
-      open={loadedAlertOpen}
-      onClose={() => setLoadedAlertOpen(false)}
-      sx={{ mt: 8 }}
-
-    >
-      <Alert
-        sx={{ py: 2, width: '100%' }}
-        onClick={() => setLoadedAlertOpen(false)}
-      >
-        Worksheet {"'"}{title}{"'"} loaded successfully.
-      </Alert>
-    </Snackbar>
-  )
-}
-
 export function SavedAlert() {
   const dispatch = useDispatch()
   const title = useSelector((s: RootState) => s.content.title)
