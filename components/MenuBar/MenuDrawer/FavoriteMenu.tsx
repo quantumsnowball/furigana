@@ -41,7 +41,7 @@ function FavoriteMenu() {
             icon={<DownloadIcon />}
             text='Export'
             onClick={async () => {
-              const fileHandle = await window.showSaveFilePicker();
+              const fileHandle = await window.showSaveFilePicker({ suggestedName: 'favorite-items.json' });
               const file = await fileHandle.createWritable()
               await file.write(JSON.stringify(favoriteItems))
               await file.close()
