@@ -11,6 +11,7 @@ import { MenuButtonGrouper, MenuButton } from './common'
 
 function FavoriteMenu() {
   const menuDataExpanded = useSelector((s: RootState) => s.layout.menuDataExpanded)
+  const favoriteItems = useSelector((s: RootState) => s.favorite.items)
   const dispatch = useDispatch()
 
   return (
@@ -39,8 +40,11 @@ function FavoriteMenu() {
           <MenuButton
             icon={<DownloadIcon />}
             text='Export'
-            onClick={e => {
-              alert('export')
+            onClick={async () => {
+              const fileHandle = await window.showSaveFilePicker();
+              const file = await fileHandle.createWritable()
+              await file.write(JSON.stringify(favoriteItems))
+              await file.close()
             }}
             level={1}
           />
