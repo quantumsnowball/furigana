@@ -28,7 +28,17 @@ function FavoriteMenu() {
             icon={<UploadIcon />}
             text='Import'
             onClick={async () => {
-              const [fileHandle] = await window.showOpenFilePicker()
+              const [fileHandle] = await window.showOpenFilePicker({
+                types: [
+                  {
+                    description: 'JSON',
+                    accept: {
+                      'json/*': ['.json',]
+                    }
+                  }
+                ],
+                multiple: false
+              })
               const file = await fileHandle.getFile()
               const content = await file.text()
               const obj = JSON.parse(content)
