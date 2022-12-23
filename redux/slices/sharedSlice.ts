@@ -11,7 +11,6 @@ const sharedSlice = createSlice({
       open: false,
       message: '',
     },
-    savedAlertOpen: false,
     resetAlertOpen: false,
     overwriteAlertOpen: false,
     titleErrorAlertOpen: false,
@@ -32,9 +31,6 @@ const sharedSlice = createSlice({
     },
     hideSuccessAlert: s => {
       s.successAlert.open = false
-    },
-    setSavedAlertOpen: (s, a: PayloadAction<boolean>) => {
-      s.savedAlertOpen = a.payload
     },
     setResetAlertOpen: (s, a: PayloadAction<boolean>) => {
       s.resetAlertOpen = a.payload

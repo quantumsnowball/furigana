@@ -41,36 +41,6 @@ export function SuccessAlert() {
   )
 }
 
-export function SavedAlert() {
-  const dispatch = useDispatch()
-  const title = useSelector((s: RootState) => s.content.title)
-  const [savedAlertOpen, setSavedAlertOpen] = [
-    useSelector((s: RootState) => s.shared.savedAlertOpen),
-    (open: boolean) => dispatch(sharedActions.setSavedAlertOpen(open))
-  ]
-
-  return (
-    <Snackbar
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'center'
-      }}
-      autoHideDuration={SUCCESS_ALERT_DURATION}
-      open={savedAlertOpen}
-      onClose={() => setSavedAlertOpen(false)}
-      sx={{ mt: 8 }}
-
-    >
-      <Alert
-        sx={{ py: 2, width: '100%' }}
-        onClick={() => setSavedAlertOpen(false)}
-      >
-        Worksheet saved as {"'"}{title}{"'"} successfully.
-      </Alert>
-    </Snackbar>
-  )
-}
-
 export function OverwriteAlert() {
   const dispatch = useDispatch()
   const title = useSelector((s: RootState) => s.content.title)
@@ -80,9 +50,6 @@ export function OverwriteAlert() {
     useSelector((s: RootState) => s.shared.overwriteAlertOpen),
     (open: boolean) => dispatch(sharedActions.setOverwriteAlertOpen(open))
   ]
-  const setSavedAlertOpen =
-    (open: boolean) => dispatch(sharedActions.setSavedAlertOpen(open))
-
 
   return (
     <Snackbar
@@ -108,7 +75,7 @@ export function OverwriteAlert() {
               replaceFavorite({ title, items })
               setOverwriteAlertOpen(false)
               e.stopPropagation()
-              setSavedAlertOpen(true)
+              dispatch(sharedActions.showSuccessAlert(`Worksheet saved to '${title}' successfully.`))
             }}
           >
             Overwrite

@@ -38,15 +38,12 @@ const SaveAsButton = () => {
     useSelector((s: RootState) => s.favorite.items),
     (c: Content) => dispatch(favoriteActions.setItem(c))
   ]
-  const setSavedAlertOpen = 
-    (open: boolean) => dispatch(sharedActions.setSavedAlertOpen(open))
- 
-  const setOverwriteAlertOpen = 
+  const setOverwriteAlertOpen =
     (open: boolean) => dispatch(sharedActions.setOverwriteAlertOpen(open))
- 
-  const setTitleErrorAlertOpen = 
+
+  const setTitleErrorAlertOpen =
     (open: boolean) => dispatch(sharedActions.setTitleErrorAlertOpen(open))
- 
+
   return (
     <IconButton
       sx={{ color: '#ccc' }}
@@ -61,7 +58,7 @@ const SaveAsButton = () => {
           return
         }
         addFavorite({ title, items })
-        setSavedAlertOpen(true)
+        dispatch(sharedActions.showSuccessAlert(`Worksheet saved as '${title}' successfully.`))
       }}
     >
       <SaveAsIcon />
