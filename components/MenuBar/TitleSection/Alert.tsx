@@ -1,15 +1,15 @@
 import { Alert, Button, Snackbar } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { favoriteActions } from "../../../../redux/slices/favoriteSlice";
-import { RootState } from "../../../../redux/store";
-import { Content } from "../../../../types/content";
+import { favoriteActions } from "../../../redux/slices/favoriteSlice";
+import { RootState } from "../../../redux/store";
+import { Content } from "../../../types/content";
 import {
   CONSENT_ALERT_DURATION,
   ERROR_ALERT_DURATION,
   SUCCESS_ALERT_DURATION
-} from "../../../../constants/layout";
-import { sharedActions } from "../../../../redux/slices/sharedSlice";
+} from "../../../constants/layout";
+import { sharedActions } from "../../../redux/slices/sharedSlice";
 
 
 export function LoadedAlert() {

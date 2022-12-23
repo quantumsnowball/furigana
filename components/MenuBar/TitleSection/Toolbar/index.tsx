@@ -4,8 +4,6 @@ import {
 } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../../redux/store"
-import EditDialog from "./EditDialog"
-import { ErrorAlert, LoadedAlert, OverwriteAlert, SavedAlert } from "./Alert"
 import { sharedActions } from "../../../../redux/slices/sharedSlice"
 
 
@@ -28,13 +26,6 @@ export function Toolbar() {
           {title}
         </Typography>
       </Box>
-      <EditDialog />
-      <LoadedAlert />
-      <SavedAlert />
-      <OverwriteAlert />
-      <ErrorAlert
-        text='Please enter a title before saving.'
-      />
     </>
   )
 }
