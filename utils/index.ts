@@ -11,3 +11,7 @@ export const formatedTime = (d: Date) => {
   const ss = d.getSeconds().toString().padStart(2, '0')
   return `${hh}.${mm}.${ss}`
 }
+
+export const pathToName = (p: string) =>
+  p[1].toUpperCase() + p.slice(2)
+

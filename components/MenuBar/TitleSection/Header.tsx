@@ -1,15 +1,18 @@
 import { Box, Typography } from "@mui/material";
-import { APP_NAME, VERSION } from "../../../constants";
+import { useRouter } from "next/router";
+import { pathToName } from "../../../utils";
 
 
 export function Header() {
+  const router = useRouter()
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Typography
         component="span"
         sx={{ cursor: 'pointer' }}
       >
-        {APP_NAME}, v{VERSION}
+        {pathToName(router.pathname)}
       </Typography>
     </Box>
   )
