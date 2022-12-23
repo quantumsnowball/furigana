@@ -27,6 +27,7 @@ function Summary({ content }: SummaryProps) {
       elevation={1}
       sx={{
         display: 'flex',
+        alignItems: 'center',
         p: 1
       }}
       onClick={() => {
