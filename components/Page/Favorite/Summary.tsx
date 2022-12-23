@@ -8,8 +8,10 @@ import { useDispatch } from "react-redux"
 import { contentActions } from "../../../redux/slices/contentSlice"
 import { Content } from "../../../types/content"
 import ClearIcon from '@mui/icons-material/Clear'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { favoriteActions } from "../../../redux/slices/favoriteSlice"
 import { sharedActions } from "../../../redux/slices/sharedSlice"
+import { useState } from "react"
 
 
 interface SummaryProps {
@@ -22,6 +24,7 @@ function Summary({ content }: SummaryProps) {
   const dispatch = useDispatch()
   const setContent = (c: Content) => dispatch(contentActions.setContent(c))
   const removeItem = (title: string) => dispatch(favoriteActions.removeItem(title))
+  const [tappedDelete, setTappedDelete] = useState(false)
 
   return (
     <Paper
@@ -58,11 +61,14 @@ function Summary({ content }: SummaryProps) {
       <IconButton
         color='error'
         onClick={e => {
-          removeItem(content.title)
+          if (tappedDelete)
+            removeItem(content.title)
+          else
+            setTappedDelete(true)
           e.stopPropagation()
         }}
       >
-        <ClearIcon />
+        {tappedDelete ? <DeleteForeverIcon /> : <ClearIcon />}
       </IconButton>
     </Paper>
   )
