@@ -35,23 +35,27 @@ function FavoriteMenu() {
             icon={<EastIcon />}
             text='Import'
             onClick={async () => {
-              const [fileHandle] = await window.showOpenFilePicker({
-                types: [
-                  {
-                    description: 'JSON',
-                    accept: {
-                      'json/*': ['.json',]
+              try {
+                const [fileHandle] = await window.showOpenFilePicker({
+                  types: [
+                    {
+                      description: 'JSON',
+                      accept: {
+                        'json/*': ['.json',]
+                      }
                     }
-                  }
-                ],
-                multiple: false
-              })
-              const file = await fileHandle.getFile()
-              const content = await file.text()
-              const items = JSON.parse(content)
-              setFavoriteItems(items)
-              router.push('/favorite')
-              alert('Successfully imported favorite items.')
+                  ],
+                  multiple: false
+                })
+                const file = await fileHandle.getFile()
+                const content = await file.text()
+                const items = JSON.parse(content)
+                setFavoriteItems(items)
+                router.push('/favorite')
+                alert('Successfully imported favorite items.')
+              } catch (err) {
+                console.log(err)
+              }
             }}
             level={1}
           />
@@ -59,11 +63,15 @@ function FavoriteMenu() {
             icon={<WestIcon />}
             text='Export'
             onClick={async () => {
-              const fileHandle = await window.showSaveFilePicker({ suggestedName: 'favorite-items.json' });
-              const file = await fileHandle.createWritable()
-              await file.write(JSON.stringify(favoriteItems, null, 2))
-              await file.close()
-              alert('Successfully exported favorite items.')
+              try {
+                const fileHandle = await window.showSaveFilePicker({ suggestedName: 'favorite-items.json' });
+                const file = await fileHandle.createWritable()
+                await file.write(JSON.stringify(favoriteItems, null, 2))
+                await file.close()
+                alert('Successfully exported favorite items.')
+              } catch (err) {
+                console.log(err)
+              }
             }}
             level={1}
           />
