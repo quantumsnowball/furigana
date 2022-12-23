@@ -12,6 +12,7 @@ import { favoriteActions } from '../../../redux/slices/favoriteSlice'
 import { useRouter } from "next/router"
 import { fileOpen, fileSave } from 'browser-fs-access';
 import { formatedDate, formatedTime } from '../../../utils'
+import { sharedActions } from '../../../redux/slices/sharedSlice'
 
 
 function FavoriteMenu() {
@@ -21,6 +22,8 @@ function FavoriteMenu() {
     useSelector((s: RootState) => s.favorite.items),
     (items: FavoriteItems) => dispatch(favoriteActions.setItems(items))
   ]
+  const showSuccessAlert =
+    (m: string) => dispatch(sharedActions.showSuccessAlert(m))
   const router = useRouter()
 
   return (
@@ -44,10 +47,10 @@ function FavoriteMenu() {
                   extensions: ['.json',],
                   multiple: false
                 })
-                const items = JSON.parse(await blob.text())
+                const items: FavoriteItems = JSON.parse(await blob.text())
                 setFavoriteItems(items)
                 router.push('/favorite')
-                alert('Successfully imported favorite items.')
+                showSuccessAlert(`Successfully imported ${Object.keys(items).length} favorite items.`)
               } catch (err) {
                 console.log(err)
               }
@@ -68,7 +71,7 @@ function FavoriteMenu() {
                   fileName: `${tag}-favorite-items.json`,
                   extensions: ['.json',]
                 })
-                alert('Successfully exported favorite items.')
+                showSuccessAlert(`Successfully exported ${Object.keys(favoriteItems).length} favorite items.`)
               } catch (err) {
                 console.log(err)
               }

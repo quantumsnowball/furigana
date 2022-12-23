@@ -12,6 +12,35 @@ import {
 import { sharedActions } from "../../../redux/slices/sharedSlice";
 
 
+export function SuccessAlert() {
+  const dispatch = useDispatch()
+  const [alert, hideAlert] = [
+    useSelector((s: RootState) => s.shared.successAlert),
+    () => dispatch(sharedActions.hideSuccessAlert())
+  ]
+
+  return (
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'center'
+      }}
+      autoHideDuration={SUCCESS_ALERT_DURATION}
+      open={alert.open}
+      onClose={hideAlert}
+      sx={{ mt: 8 }}
+
+    >
+      <Alert
+        sx={{ py: 2, width: '100%' }}
+        onClick={hideAlert}
+      >
+        {alert.message}
+      </Alert>
+    </Snackbar>
+  )
+}
+
 export function LoadedAlert() {
   const dispatch = useDispatch()
   const title = useSelector((s: RootState) => s.content.title)

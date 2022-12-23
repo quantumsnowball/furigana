@@ -7,6 +7,10 @@ const sharedSlice = createSlice({
     menuOpen: false,
     editorOpen: false,
     editTitleOpen: false,
+    successAlert: {
+      open: false,
+      message: '',
+    },
     loadedAlertOpen: false,
     savedAlertOpen: false,
     resetAlertOpen: false,
@@ -22,6 +26,13 @@ const sharedSlice = createSlice({
     },
     setEditTitleOpen: (s, a: PayloadAction<boolean>) => {
       s.editTitleOpen = a.payload
+    },
+    showSuccessAlert: (s, a: PayloadAction<string>) => {
+      s.successAlert.open = true
+      s.successAlert.message = a.payload
+    },
+    hideSuccessAlert: s => { 
+      s.successAlert.open = false 
     },
     setLoadedAlertOpen: (s, a: PayloadAction<boolean>) => {
       s.loadedAlertOpen = a.payload
