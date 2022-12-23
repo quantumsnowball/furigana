@@ -1,7 +1,7 @@
 import { List, Collapse } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star'
-import UploadIcon from '@mui/icons-material/Upload'
-import DownloadIcon from '@mui/icons-material/Download'
+import EastIcon from '@mui/icons-material/East'
+import WestIcon from '@mui/icons-material/West'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../redux/store'
 import { useDispatch } from 'react-redux'
@@ -30,7 +30,7 @@ function FavoriteMenu() {
       <Collapse in={menuDataExpanded} timeout="auto" unmountOnExit>
         <List>
           <MenuButton
-            icon={<UploadIcon />}
+            icon={<EastIcon />}
             text='Import'
             onClick={async () => {
               const [fileHandle] = await window.showOpenFilePicker({
@@ -52,7 +52,7 @@ function FavoriteMenu() {
             level={1}
           />
           <MenuButton
-            icon={<DownloadIcon />}
+            icon={<WestIcon />}
             text='Export'
             onClick={async () => {
               const fileHandle = await window.showSaveFilePicker({ suggestedName: 'favorite-items.json' });
