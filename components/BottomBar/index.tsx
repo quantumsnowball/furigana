@@ -25,6 +25,7 @@ const BottomBar = () => {
       >
         <Toolbar>
           <IconButton
+            disabled={router.pathname !== '/'}
             color="inherit"
             onClick={() => setEditorOpen(true)}
           >
