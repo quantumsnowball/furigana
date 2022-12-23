@@ -29,6 +29,7 @@ function Summary({ content }: SummaryProps) {
       sx={{
         display: 'flex',
         alignItems: 'center',
+        cursor: 'pointer',
         p: 1
       }}
       onClick={() => {

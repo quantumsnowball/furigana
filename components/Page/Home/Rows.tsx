@@ -17,7 +17,7 @@ type RowProps = {
 const Row = ({ wordMode, item: { source, furigana, romaji, english, chinese } }: RowProps) =>
   <Paper
     elevation={3}
-    sx={{ p: 1, minHeight: 70 }}
+    sx={{ p: 1 }}
   >
     <Typography
       variant='h5'
