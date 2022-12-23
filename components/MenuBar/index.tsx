@@ -12,6 +12,7 @@ import { RootState } from "../../redux/store"
 import { sharedActions } from "../../redux/slices/sharedSlice"
 import { Content } from "../../types/content"
 import { favoriteActions } from "../../redux/slices/favoriteSlice"
+import { useRouter } from "next/router"
 
 
 const MenuButton = () => {
@@ -43,9 +44,11 @@ const SaveAsButton = () => {
 
   const setTitleErrorAlertOpen =
     (open: boolean) => dispatch(sharedActions.setTitleErrorAlertOpen(open))
+  const router = useRouter()
 
   return (
     <IconButton
+      disabled={router.pathname !== '/'}
       sx={{ color: '#ccc' }}
       aria-label='Save As Favorite'
       onClick={() => {
