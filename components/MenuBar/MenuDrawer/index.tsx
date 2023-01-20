@@ -19,6 +19,7 @@ function MenuDrawer() {
 
   return (
     <SwipeableDrawer
+      disableSwipeToOpen
       anchor="left"
       open={menuOpen}
       onOpen={() => setMenuOpen(true)}
